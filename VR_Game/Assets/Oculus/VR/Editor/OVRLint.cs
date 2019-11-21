@@ -295,10 +295,10 @@ public class OVRLint : EditorWindow
 
 	static void CheckStaticCommonIssues()
 	{
-		if (OVRManager.IsUnityAlphaOrBetaVersion())
-		{
-			AddFix("General", OVRManager.UnityAlphaOrBetaVersionWarningMessage, null, null, false);
-		}
+		//if (OVRManager.IsUnityAlphaOrBetaVersion())
+		//{
+			//AddFix("General", OVRManager.UnityAlphaOrBetaVersionWarningMessage, null, null, false);
+		//}
 
 		if (QualitySettings.anisotropicFiltering != AnisotropicFiltering.Enable && QualitySettings.anisotropicFiltering != AnisotropicFiltering.ForceEnable)
 		{
@@ -567,10 +567,10 @@ public class OVRLint : EditorWindow
 		{
 			AddFix("Optimize VR Layer Count", "For GPU performance, please use 4 or fewer VR layers.", delegate (UnityEngine.Object obj, bool last, int selected)
 			{
-				for (int i = 4; i < OVROverlay.instances.Length; ++i)
-				{
-					OVROverlay.instances[i].enabled = false;
-				}
+				//for (int i = 4; i < OVROverlay.instances.Length; ++i)
+				//{
+				//	OVROverlay.instances[i].enabled = false;
+				//}
 			}, null, false, "Fix");
 		}
 
