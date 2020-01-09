@@ -196,6 +196,22 @@ namespace OculusSampleFramework
                 return;
             }
 
+            // Set up offsets for grabbed object desired position relative to hand.
+            m_grabbedObjectPosOff = m_gripTransform.localPosition;
+            if (m_grabbedObj.snapOffset)
+            {
+                Vector3 snapOffset = m_grabbedObj.snapOffset.position;
+                if (m_controller == OVRInput.Controller.LTouch) snapOffset.x = -snapOffset.x;
+                m_grabbedObjectPosOff += snapOffset;
+            }
+
+            m_grabbedObjectRotOff = m_gripTransform.localRotation;
+            if (m_grabbedObj.snapOffset)
+            {
+                m_grabbedObjectRotOff = m_grabbedObj.snapOffset.rotation * m_grabbedObjectRotOff;
+                if (m_controller == OVRInput.Controller.LTouch) m_grabbedObjectRotOff = Quaternion.Inverse(m_grabbedObjectRotOff);
+            }
+
             Rigidbody grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
             Vector3 grabbablePosition = pos + rot * m_grabbedObjectPosOff;
             Quaternion grabbableRotation = rot * m_grabbedObjectRotOff;
