@@ -16,11 +16,10 @@ public class Bomb : MonoBehaviour
 
     float currentRespawnTimer;
     float currentExplodeTimer;
-    bool fuseIsLit = false;
+    public bool fuseIsLit = false;
     bool hasExploded = false;
 
     Vector3 spawnPosition;
-    public GameObject respawnZone;
 
     public GameObject explosionEffect;
     Renderer renderer;
@@ -94,9 +93,9 @@ public class Bomb : MonoBehaviour
         }
 
         // Shake the camera.
-        CameraShaker.Instance.ShakeOnce(4f, 4f, .1f, 1f);
+        CameraShaker.Instance.ShakeOnce(3f, 8f, .1f, 1f);
         // Show explosion effect.
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        //Instantiate(explosionEffect, transform.position, transform.rotation);
         // Disable the bomb's renderer.
         renderer.enabled = false;
         // Disable the bomb's crosshairs.
@@ -126,12 +125,5 @@ public class Bomb : MonoBehaviour
         colliders.SetActive(true);
         // Teleport bomb to start position.
         transform.position = spawnPosition;
-    }
-
-    // Respawn the bomb if it drops on the ground without being lit.
-    private void OnTriggerEnter(Collider other) {
-        if (other == respawnZone && hasExploded == false && fuseIsLit == false) {
-            transform.position = spawnPosition;
-        }
     }
 }

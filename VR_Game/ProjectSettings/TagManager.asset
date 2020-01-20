@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Gun
+  - Bomb
+  - Target
   layers:
   - Default
   - TransparentFX

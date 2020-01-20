@@ -5,7 +5,7 @@ using UnityEngine;
 public class RespawnObject : MonoBehaviour {
     [System.Serializable]
     private class Weapon {
-        public GameObject weapon;
+        public GameObject weaponObject;
         public Vector3 spawnPosition;
     }
 
@@ -20,22 +20,34 @@ public class RespawnObject : MonoBehaviour {
     void SaveWeaponSpawns() {
         int i = 0;
         foreach (Weapon weapon in weapons) {
-            weapons[i].spawnPosition = weapon.weapon.transform.position;
+            weapons[i].spawnPosition = weapon.weaponObject.transform.position;
             i++;
         }
     }
 
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Gun") {
-            Debug.Log("respawning gun");
             int i = 0;
             foreach (Weapon weapon in weapons) {
-                if (other.name == weapon.weapon.name) {
+                if (other.name == weapon.weaponObject.name) {
                     other.transform.position = weapon.spawnPosition;
                 } else {
                     i++;
                 }
 
+            }
+        }
+        if (other.tag == "Bomb") {
+            if (!other.GetComponent<Bomb>().fuseIsLit) {
+                int i = 0;
+                foreach (Weapon weapon in weapons) {
+                    if (other.name == weapon.weaponObject.name) {
+                        other.transform.position = weapon.spawnPosition;
+                    } else {
+                        i++;
+                    }
+
+                }
             }
         }
     }

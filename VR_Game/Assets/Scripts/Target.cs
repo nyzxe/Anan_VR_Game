@@ -36,12 +36,12 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         // If a bullet hits the target, enable isHit and move down the target.
-        if (other.CompareTag("Bullet")) {
-            isHit = true;
-            anim.SetBool("isDown", true);
+        //if (other.CompareTag("Bullet")) {
+        //    isHit = true;
+        //    anim.SetBool("isDown", true);
 
         // If a bomb or gun hits the target, enable isHit, unlock the target, and set the target to be destroyed.
-        } else if (other.CompareTag("Bomb") || other.CompareTag("Gun")) {
+        if (other.CompareTag("Bomb") || other.CompareTag("Gun")) {
             isHit = true;
             locked = false;
             DestroyTarget();
