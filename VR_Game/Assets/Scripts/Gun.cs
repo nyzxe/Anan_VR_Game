@@ -5,21 +5,15 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField]
-    GameObject shellPrefab;
-    [SerializeField]
     GameObject muzzleFlash;
     [SerializeField]
     Transform barrelLocation;
-    [SerializeField]
-    Transform chamberLocation;
     [SerializeField]
     GameObject bulletImpact;
     OVRGrabbable grabber;
     public OVRInput.Button shootButton;
     [SerializeField]
     float shotPower;
-    [SerializeField]
-    float ejectPower;
     public enum GunType { Pistol, SMG, Shotgun, Rifle }
     public GunType gunType;
     [SerializeField]
@@ -83,8 +77,7 @@ public class Gun : MonoBehaviour
         spread += barrelLocation.transform.up * Random.Range(-spreadDeviation, spreadDeviation); // add random up or down (because random can get negative too)
         spread += barrelLocation.transform.right * Random.Range(-spreadDeviation, spreadDeviation); // add random left or right
         direction += spread.normalized * Random.Range(0f, 0.2f);
-        Instantiate(shellPrefab, chamberLocation.position, chamberLocation.rotation).GetComponent<Rigidbody>().AddForce(direction * ejectPower);
-        Destroy(Instantiate(muzzleFlash, barrelLocation.position, barrelLocation.rotation), 0.2f);
+        Destroy(Instantiate(muzzleFlash, barrelLocation.position, barrelLocation.rotation), 1f);
 
 
         RaycastHit hit;
