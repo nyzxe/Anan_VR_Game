@@ -11,6 +11,8 @@ public class RespawnObject : MonoBehaviour {
 
     [SerializeField]
     private Weapon[] weapons;
+    [SerializeField]
+    GameObject respawnEffect;
 
     // Start is called before the first frame update
     void Start() {
@@ -31,6 +33,7 @@ public class RespawnObject : MonoBehaviour {
             foreach (Weapon weapon in weapons) {
                 if (other.name == weapon.weaponObject.name) {
                     other.transform.position = weapon.spawnPosition;
+                    Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
                 } else {
                     i++;
                 }
@@ -43,6 +46,7 @@ public class RespawnObject : MonoBehaviour {
                 foreach (Weapon weapon in weapons) {
                     if (other.name == weapon.weaponObject.name) {
                         other.transform.position = weapon.spawnPosition;
+                        Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
                     } else {
                         i++;
                     }

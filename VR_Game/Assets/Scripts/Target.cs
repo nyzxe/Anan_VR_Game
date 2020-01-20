@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    Animator anim;
+    public Animator anim;
     public ScoreManager score;
     public bool locked;
     public bool isFriendly;
-    public bool isHit;
+    public bool isDestroyed;
     [SerializeField]
     float destroyTimer;
     bool scoreTallied;
     Rigidbody rb;
+    public int currentHealth;
 
     private void Start() {
         anim = GetComponent<Animator>();
@@ -23,8 +24,13 @@ public class Target : MonoBehaviour
         // Sets the kinematic state based on the locked status.
         rb.isKinematic = locked;
 
+        if (currentHealth <= 0) {
+            isDestroyed = true;
+            locked = false;
+        }
+
         // If the target is hit and the score has not been adjusted, adjust the score accordingly.
-        if (isHit && !scoreTallied) {
+        if (isDestroyed && !scoreTallied) {
             if (isFriendly) {
                 score.DeductScore();
                 
@@ -42,7 +48,7 @@ public class Target : MonoBehaviour
 
         // If a bomb or gun hits the target, enable isHit, unlock the target, and set the target to be destroyed.
         if (other.CompareTag("Bomb") || other.CompareTag("Gun")) {
-            isHit = true;
+            isDestroyed = true;
             locked = false;
             DestroyTarget();
         }

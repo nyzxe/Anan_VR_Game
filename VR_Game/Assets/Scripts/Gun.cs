@@ -5,13 +5,21 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField]
-    GameObject bulletPrefab;
+    GameObject shellPrefab;
+    [SerializeField]
+    GameObject muzzleFlash;
     [SerializeField]
     Transform barrelLocation;
+    [SerializeField]
+    Transform chamberLocation;
+    [SerializeField]
+    GameObject bulletImpact;
     OVRGrabbable grabber;
     public OVRInput.Button shootButton;
     [SerializeField]
     float shotPower;
+    [SerializeField]
+    float ejectPower;
     public enum GunType { Pistol, SMG, Shotgun, Rifle }
     public GunType gunType;
     [SerializeField]
@@ -19,9 +27,10 @@ public class Gun : MonoBehaviour
     float lastFired;
     public int shotDamage;
     [SerializeField]
-    int shotgunBulletCount;
+    float spreadDeviation;
     [SerializeField]
-    float shotgunSpreadDeviation;
+    int shotgunBulletCount;
+    
 
     void Start()
     {
@@ -32,7 +41,7 @@ public class Gun : MonoBehaviour
 
     void Update() {
         // If the held gun is a shotgun,
-        if (gunType != GunType.SMG) {
+        if (gunType == GunType.Shotgun) {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun with spread.
             if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
@@ -41,9 +50,10 @@ public class Gun : MonoBehaviour
                     }
                 }
             }
+        }
 
         // If the held gun is a submachine gun,
-        } else if (gunType == GunType.SMG) {
+        if (gunType == GunType.SMG) {
             // While the gun is grabbed and the button is down, shoot the gun continuously.
             if (grabber.isGrabbed && OVRInput.Get(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
@@ -51,8 +61,10 @@ public class Gun : MonoBehaviour
                 }
 
             }
+        }
+
         // If the gun is a rifle or pistol,
-        } else {
+        if (gunType == GunType.Pistol || gunType == GunType.Rifle) {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun.
             if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
@@ -62,33 +74,33 @@ public class Gun : MonoBehaviour
         }
     }
 
-    // Creates the bullet and propels it from the barrel.
     // Creates a raycast, applies a force if it hits a weapon, and knocks down any targets it hits.
     void Shoot()
     {
         lastFired = Time.time;
-        if (gunType == GunType.Shotgun) {
-            Vector3 direction = barrelLocation.transform.forward; // your initial aim.
-            Vector3 spread = barrelLocation.transform.forward;
-            spread += barrelLocation.transform.up * Random.Range(-shotgunSpreadDeviation, shotgunSpreadDeviation); // add random up or down (because random can get negative too)
-            spread += barrelLocation.transform.right * Random.Range(-shotgunSpreadDeviation, shotgunSpreadDeviation); // add random left or right
+        Vector3 direction = barrelLocation.transform.forward; // your initial aim.
+        Vector3 spread = barrelLocation.transform.forward;
+        spread += barrelLocation.transform.up * Random.Range(-spreadDeviation, spreadDeviation); // add random up or down (because random can get negative too)
+        spread += barrelLocation.transform.right * Random.Range(-spreadDeviation, spreadDeviation); // add random left or right
+        direction += spread.normalized * Random.Range(0f, 0.2f);
+        Instantiate(shellPrefab, chamberLocation.position, chamberLocation.rotation).GetComponent<Rigidbody>().AddForce(direction * ejectPower);
+        Destroy(Instantiate(muzzleFlash, barrelLocation.position, barrelLocation.rotation), 0.2f);
 
-            // Using random up and right values will lead to a square spray pattern. If we normalize this vector, we'll get the spread direction, but as a circle.
-            // Since the radius is always 1 then (after normalization), we need another random call. 
-            direction += spread.normalized * Random.Range(0f, 0.2f);
-            Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(direction * shotPower);
 
-        } else {
-            Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
+        RaycastHit hit;
+        if (Physics.Raycast(barrelLocation.position, barrelLocation.forward, out hit)) {
+            Destroy(Instantiate(bulletImpact, hit.transform.position, Quaternion.LookRotation(hit.normal)), 2f);
+            Target target = hit.transform.GetComponent<Target>();
+            if (target != null) {
+                target.currentHealth -= shotDamage;
+            }
+            if (hit.rigidbody != null) {
+                hit.rigidbody.AddForce(-hit.normal * shotPower);
+            }
+
+            
+            
         }
-        
-        
-        //RaycastHit hit;
-        //if (Physics.Raycast(barrelLocation.position, barrelLocation.forward, out hit)) {
-        //    //hit.gameObject.GetComponent<Rigidbody>()
-        //    //if (hit.GetComponent<Rigidbody>())
-        //    Debug.Log(hit.transform.name);
-        //}
     }
 
 

@@ -16,6 +16,11 @@ public class Bomb : MonoBehaviour
 
     float currentRespawnTimer;
     float currentExplodeTimer;
+    [SerializeField]
+    GameObject fuseTip;
+    [SerializeField]
+    GameObject fuseEffect;
+    GameObject currentFuseEffect;
     public bool fuseIsLit = false;
     bool hasExploded = false;
 
@@ -48,10 +53,13 @@ public class Bomb : MonoBehaviour
         // If the bomb is grabbed and the button is pressed, light the fuse.
         if (grabber.isGrabbed && OVRInput.GetDown(lightButton, grabber.grabbedBy.GetController()) && !hasExploded && !fuseIsLit) {
             fuseIsLit = true;
+            currentFuseEffect = Instantiate(fuseEffect, fuseTip.transform.position, fuseTip.transform.rotation);
+            currentFuseEffect.transform.parent = gameObject.transform;
         }
 
         // If fuse is lit, count down the timer.
         if (fuseIsLit && !hasExploded) {
+            
             currentExplodeTimer -= Time.deltaTime;
             // When the timer reaches 0, explode the bomb.
             if (currentExplodeTimer <= 0f) {
@@ -61,6 +69,7 @@ public class Bomb : MonoBehaviour
 
         // If bomb has exploded, count down the respawn delay.
         if (hasExploded) {
+            Destroy(currentFuseEffect);
             currentRespawnTimer -= Time.deltaTime;
             // When the delay ends, reset the bomb.
             if (currentRespawnTimer <= 0f) {
@@ -85,7 +94,7 @@ public class Bomb : MonoBehaviour
                 // If the involved object is a target, adjust the necessary variables for the target.
                 if (target != null) {
                     target.locked = false;
-                    target.isHit = true;
+                    target.isDestroyed = true;
                     target.DestroyTarget();
                 }
                 rb.AddExplosionForce(force, transform.position, radius);
@@ -93,9 +102,9 @@ public class Bomb : MonoBehaviour
         }
 
         // Shake the camera.
-        CameraShaker.Instance.ShakeOnce(3f, 8f, .1f, 1f);
+        CameraShaker.Instance.ShakeOnce(3f, 6f, .1f, 1f);
         // Show explosion effect.
-        //Instantiate(explosionEffect, transform.position, transform.rotation);
+        Instantiate(explosionEffect, transform.position, transform.rotation);
         // Disable the bomb's renderer.
         renderer.enabled = false;
         // Disable the bomb's crosshairs.
@@ -104,6 +113,8 @@ public class Bomb : MonoBehaviour
         colliders.SetActive(false);
         // Set exploded.
         hasExploded = true;
+        // Remove explosion effect.
+        Destroy(explosionEffect);
     }
 
     // Reset all bomb variables and respawn the bomb.
