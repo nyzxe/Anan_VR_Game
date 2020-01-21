@@ -21,16 +21,14 @@ public class Target : MonoBehaviour
     }
 
     private void Update() {
-        // Sets the kinematic state based on the locked status.
-        rb.isKinematic = locked;
 
         if (currentHealth <= 0) {
             isDestroyed = true;
-            locked = false;
         }
 
         // If the target is hit and the score has not been adjusted, adjust the score accordingly.
         if (isDestroyed && !scoreTallied) {
+            anim.Play("Pop Down");
             if (isFriendly) {
                 score.DeductScore();
                 
@@ -38,14 +36,12 @@ public class Target : MonoBehaviour
                 score.AddScore();
             }
         }
+
+        // Sets the kinematic state based on the locked status.
+        rb.isKinematic = locked;
     }
 
     private void OnTriggerEnter(Collider other) {
-        // If a bullet hits the target, enable isHit and move down the target.
-        //if (other.CompareTag("Bullet")) {
-        //    isHit = true;
-        //    anim.SetBool("isDown", true);
-
         // If a bomb or gun hits the target, enable isHit, unlock the target, and set the target to be destroyed.
         if (other.CompareTag("Bomb") || other.CompareTag("Gun")) {
             isDestroyed = true;

@@ -144,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14251930}
   m_LocalRotation: {x: -0, y: -0, z: 0.000000014901159, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0.523}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.4746}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1288722634}
@@ -1316,6 +1316,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f9ce3492607ec944c9ab587fc1aab423,
+        type: 3}
+      propertyPath: m_TagString
+      value: Level
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9ce3492607ec944c9ab587fc1aab423, type: 3}
 --- !u!1 &731851808 stripped
@@ -1340,6 +1345,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &731851810 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8394997781730816806, guid: f5077a0e251d7ac4eb1ea32961f7ece2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4823141986057933757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!136 &751060700 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 136334822803353524, guid: 6fae51a9f4170334e8639e8dbfc0a54b,
@@ -1612,14 +1623,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be84e4d7829855419c06b94e56bd135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
-    type: 3}
   barrelLocation: {fileID: 1498388125}
-  bulletImpact: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,
-    type: 3}
+  bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
   shootButton: 8192
   shotPower: 70
-  ejectPower: 1
+  shotgunLine: {fileID: 0}
+  shotDuration: 1
   gunType: 0
   fireRate: 10
   shotDamage: 5
@@ -1676,6 +1685,102 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.047843836, y: 0.204615, z: 0.28752354}
   m_Center: {x: -9.313222e-10, y: -0.00000001490116, z: 0.000000007450581}
+--- !u!120 &811565200
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811565194}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 868647e472f4bb244a11233ef45e80b6, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 0.017
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
 --- !u!1 &814199714
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,17 +3366,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be84e4d7829855419c06b94e56bd135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
-    type: 3}
   barrelLocation: {fileID: 14251931}
-  bulletImpact: {fileID: 100002, guid: 3d2cab718e7acb04e8e3c2759bbab3ee, type: 3}
+  bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
   shootButton: 8192
-  shotPower: 20
-  ejectPower: 1
+  shotPower: 100
+  shotgunLine: {fileID: 1811586461931286363, guid: 44d690c39dbec994ea2357a3d72b1c73,
+    type: 3}
+  shotDuration: 50
   gunType: 2
-  fireRate: 2
+  fireRate: 3
   shotDamage: 2
-  spreadDeviation: 1
+  spreadDeviation: 0.7
   shotgunBulletCount: 8
 --- !u!64 &1351260946 stripped
 MeshCollider:
@@ -3303,7 +3408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352211216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0814, z: 0.187}
+  m_LocalPosition: {x: 0.0000012409873, y: 0.0814112, z: 0.16020246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1897300178}
@@ -3596,7 +3701,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498388124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000000014901161, y: 0.07220121, z: 0.16800271}
+  m_LocalPosition: {x: -0, y: 0.0722, z: 0.14284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811565195}
@@ -3624,6 +3729,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &1529679194 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2822519588945300109, guid: 2ded832af2a4f954cb8214673a3cc74c,
+    type: 3}
+  m_PrefabInstance: {fileID: 926384260653107579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1539987643
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,7 +3912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678030052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.061, z: 0.5051}
+  m_LocalPosition: {x: 0, y: 0.061, z: 0.4849}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2034813183}
@@ -3873,6 +3984,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &1696325583 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5696618982754011431, guid: cf214f1b3ee2d1444ab8450f4e5ae894,
+    type: 3}
+  m_PrefabInstance: {fileID: 1268656859477371861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!136 &1700745685 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 136996417771637876, guid: 0242aa8515b4bc947a945a5c6df83ee9,
@@ -4402,19 +4519,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be84e4d7829855419c06b94e56bd135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
-    type: 3}
   barrelLocation: {fileID: 1352211217}
-  bulletImpact: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,
-    type: 3}
+  bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
   shootButton: 8192
-  shotPower: 70
-  ejectPower: 1
+  shotPower: 20
+  shotgunLine: {fileID: 0}
+  shotDuration: 1
   gunType: 1
   fireRate: 15
   shotDamage: 2
   spreadDeviation: 0.1
   shotgunBulletCount: 0
+--- !u!120 &1897300183
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897300177}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 868647e472f4bb244a11233ef45e80b6, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 0.017
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
 --- !u!1 &1897511327 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6450484266983113515, guid: 0a8375f2a6f58624a82f53f1e08aa7ed,
@@ -4450,6 +4661,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.03832518, y: 0.93837357, z: 0.69994307}
   m_Center: {x: 0, y: 0.000000029802319, z: 0}
+--- !u!95 &1897511330 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1436237247232773560, guid: 0a8375f2a6f58624a82f53f1e08aa7ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 5362154834360848028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1899569817
 GameObject:
   m_ObjectHideFlags: 0
@@ -4819,19 +5036,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be84e4d7829855419c06b94e56bd135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
-    type: 3}
   barrelLocation: {fileID: 1678030053}
-  bulletImpact: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,
-    type: 3}
+  bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
   shootButton: 8192
-  shotPower: 70
-  ejectPower: 1
+  shotPower: 100
+  shotgunLine: {fileID: 0}
+  shotDuration: 1
   gunType: 3
   fireRate: 2
   shotDamage: 10
   spreadDeviation: 0.01
   shotgunBulletCount: 0
+--- !u!120 &2034813185
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034813179}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 868647e472f4bb244a11233ef45e80b6, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 0.017
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
 --- !u!1 &2059523539
 GameObject:
   m_ObjectHideFlags: 0
@@ -4989,6 +5300,11 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 926384260710370530, guid: 2ded832af2a4f954cb8214673a3cc74c,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1529679194}
     - target: {fileID: 5305690461547931639, guid: 2ded832af2a4f954cb8214673a3cc74c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5143,6 +5459,11 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6815450889097978621, guid: cf214f1b3ee2d1444ab8450f4e5ae894,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1696325583}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf214f1b3ee2d1444ab8450f4e5ae894, type: 3}
 --- !u!33 &4044710141252294440
@@ -5240,6 +5561,11 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3922133992391876762, guid: f5077a0e251d7ac4eb1ea32961f7ece2,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 731851810}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5077a0e251d7ac4eb1ea32961f7ece2, type: 3}
 --- !u!4 &5006512734813842718
@@ -5336,6 +5662,11 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6450484266983113508, guid: 0a8375f2a6f58624a82f53f1e08aa7ed,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1897511330}
     - target: {fileID: 6450484266983113515, guid: 0a8375f2a6f58624a82f53f1e08aa7ed,
         type: 3}
       propertyPath: m_Name

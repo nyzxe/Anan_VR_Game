@@ -7,6 +7,8 @@ TagManager:
   - Gun
   - Bomb
   - Target
+  - FxTemporaire
+  - Level
   layers:
   - Default
   - TransparentFX
