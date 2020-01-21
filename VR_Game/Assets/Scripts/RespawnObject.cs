@@ -33,7 +33,10 @@ public class RespawnObject : MonoBehaviour {
             int i = 0;
             foreach (Weapon weapon in weapons) {
                 if (other.name == weapon.weaponObject.name) {
+                    Rigidbody rb = other.GetComponent<Rigidbody>();
+                    rb.isKinematic = true;
                     other.transform.position = weapon.spawnPosition;
+                    rb.isKinematic = false;
                     Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
                 } else {
                     i++;
@@ -46,7 +49,10 @@ public class RespawnObject : MonoBehaviour {
                 int i = 0;
                 foreach (Weapon weapon in weapons) {
                     if (other.name == weapon.weaponObject.name) {
+                        Rigidbody rb = other.GetComponent<Rigidbody>();
+                        rb.isKinematic = true;
                         other.transform.position = weapon.spawnPosition;
+                        rb.isKinematic = false;
                         Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
                     } else {
                         i++;

@@ -9,6 +9,8 @@ public class ScoreManager : MonoBehaviour
     int targetScore;
     public int currentScore;
     [SerializeField]
+    GameObject startButton;
+    [SerializeField]
     Text scoreText;
     [HideInInspector]
     public bool gameEnded;
@@ -30,6 +32,7 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameEnded = true;
         defaultLightColor = resultLight.color;
         currentTimer = timeLimit;
     }
@@ -74,6 +77,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void StartGame() {
+        startButton.SetActive(false);
         resultGiven = false;
         gameEnded = false;
     }
@@ -87,6 +91,10 @@ public class ScoreManager : MonoBehaviour
         currentScore = 0;
         currentTimer = timeLimit;
         resultLight.color = defaultLightColor;
+        startButton.SetActive(true);
     }
+
+    
+
 
 }

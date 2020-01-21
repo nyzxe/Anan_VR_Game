@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 135954929688684896}
   - component: {fileID: 114496700428029676}
   - component: {fileID: 5631258384988145386}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Respawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,10 +185,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2556834116208098863, guid: 7009205cf90e2874b903d349240e83a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557547322449934189, guid: 7009205cf90e2874b903d349240e83a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2557562332305246053, guid: 7009205cf90e2874b903d349240e83a5,
         type: 3}
       propertyPath: m_Name
       value: Rings
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557562332305246053, guid: 7009205cf90e2874b903d349240e83a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7009205cf90e2874b903d349240e83a5, type: 3}

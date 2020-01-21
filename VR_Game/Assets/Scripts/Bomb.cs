@@ -30,6 +30,7 @@ public class Bomb : MonoBehaviour
     Renderer renderer;
     GameObject colliders;
     GameObject crosshairs;
+    Rigidbody rb;
 
     OVRGrabbable grabber;
     public OVRInput.Button lightButton;
@@ -40,6 +41,7 @@ public class Bomb : MonoBehaviour
         crosshairs = GetComponent<Transform>().GetChild(0).gameObject;
         colliders = GetComponent<Transform>().GetChild(1).gameObject;
         grabber = GetComponent<OVRGrabbable>();
+        rb = GetComponent<Rigidbody>();
 
         // Save spawn position.
         spawnPosition = transform.position;
@@ -105,36 +107,47 @@ public class Bomb : MonoBehaviour
         CameraShaker.Instance.ShakeOnce(3f, 6f, .1f, 1f);
         // Show explosion effect.
         Instantiate(explosionEffect, transform.position, transform.rotation);
-        // Disable the bomb's renderer.
-        renderer.enabled = false;
-        // Disable the bomb's crosshairs.
-        crosshairs.SetActive(false);
-        // Disable the bomb's colliders.
-        colliders.SetActive(false);
+
+        if (!grabber.isGrabbed) {
+            // Disable the bomb's renderer.
+            renderer.enabled = false;
+            // Disable the bomb's crosshairs.
+            crosshairs.SetActive(false);
+            // Disable the bomb's colliders.
+            colliders.SetActive(false);
+        }
         // Set exploded.
         hasExploded = true;
-        // Remove explosion effect.
-        Destroy(explosionEffect);
+
+
+
     }
 
     // Reset all bomb variables and respawn the bomb.
     void ResetBomb() {
-
         // Reset fuse state.
         fuseIsLit = false;
-        // Reset exploded state.
-        hasExploded = false;
         // Reset bomb timer.
         currentExplodeTimer = explodeDelay;
-        // Reset respawn timer.
-        currentRespawnTimer = respawnDelay;
-        // Enable the bomb's renderer.
-        renderer.enabled = true;
-        // Enable the bomb's crosshairs.
-        crosshairs.SetActive(true);
-        // Enable the bomb's colliders.
-        colliders.SetActive(true);
-        // Teleport bomb to start position.
-        transform.position = spawnPosition;
+
+        if (!grabber.isGrabbed) {
+            // Reset exploded state.
+            hasExploded = false;
+            // Reset respawn timer.
+            currentRespawnTimer = respawnDelay;
+            // Enable the bomb's renderer.
+            renderer.enabled = true;
+            // Enable the bomb's crosshairs.
+            crosshairs.SetActive(true);
+            // Enable the bomb's colliders.
+            colliders.SetActive(true);
+            // Temporarily set object to isKinematic.
+            rb.isKinematic = true;
+            // Teleport bomb to start position.
+            transform.position = spawnPosition;
+            // Reset isKinematic.
+            rb.isKinematic = false;
+        }
+        
     }
 }
