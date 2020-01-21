@@ -73,12 +73,12 @@ public class ScoreManager : MonoBehaviour
         resultGiven = true;
     }
 
-    void StartGame() {
+    public void StartGame() {
         resultGiven = false;
         gameEnded = false;
     }
 
-    void EndGame() {
+    public void EndGame() {
         gameEnded = true;
     }
 
