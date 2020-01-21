@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public Animator anim;
+    Animator anim;
     public ScoreManager score;
     public bool locked;
     public bool isFriendly;
     public bool isDestroyed;
+    bool scoreTallied;
     [SerializeField]
     float destroyTimer;
-    bool scoreTallied;
     Rigidbody rb;
     public int currentHealth;
 
     private void Start() {
-        anim = GetComponent<Animator>();
+        anim = transform.parent.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -28,13 +28,14 @@ public class Target : MonoBehaviour
 
         // If the target is hit and the score has not been adjusted, adjust the score accordingly.
         if (isDestroyed && !scoreTallied) {
-            anim.Play("Pop Down");
+            anim.Play("PopDown");
             if (isFriendly) {
                 score.DeductScore();
                 
             } else {
                 score.AddScore();
             }
+            scoreTallied = true;
         }
 
         // Sets the kinematic state based on the locked status.

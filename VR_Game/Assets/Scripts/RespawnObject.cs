@@ -6,6 +6,7 @@ public class RespawnObject : MonoBehaviour {
     [System.Serializable]
     private class Weapon {
         public GameObject weaponObject;
+        [HideInInspector]
         public Vector3 spawnPosition;
     }
 

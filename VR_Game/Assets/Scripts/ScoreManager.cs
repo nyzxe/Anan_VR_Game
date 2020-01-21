@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public int targetScore;
+
+    int targetScore;
     public int currentScore;
+    [SerializeField]
+    Text scoreText;
+    [HideInInspector]
     public bool gameEnded;
     public bool resultGiven;
     public float timeLimit;
@@ -35,6 +40,7 @@ public class ScoreManager : MonoBehaviour
         // If the game is ongoing, count down the timer.
         if (!gameEnded) {
             currentTimer -= Time.deltaTime;
+            scoreText.text = currentScore.ToString();
             if (currentTimer <= 0f) {
                 EndGame();
             }
