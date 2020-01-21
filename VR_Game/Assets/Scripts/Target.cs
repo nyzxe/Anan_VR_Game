@@ -11,7 +11,6 @@ public class Target : MonoBehaviour
     public bool isFriendly;
     public bool isDestroyed;
     public bool isDeployed;
-    bool isUp;
     bool scoreTallied;
     [SerializeField]
     float destroyTimer;
@@ -25,20 +24,12 @@ public class Target : MonoBehaviour
         anim = transform.parent.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentDelay = popupDelay;
-        isUp = false;
+        isDeployed = false;
     }
 
     private void Update() {
 
         if (!scoreManager.gameEnded) {
-            if (!isUp) {
-
-                currentDelay -= Time.deltaTime;
-                if (currentDelay <= 0f) {
-                    anim.Play("PopUp");
-                    isUp = true;
-                }
-            }
 
             if (currentHealth <= 0) {
                 isDestroyed = true;
@@ -65,7 +56,7 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         // If a bomb or gun hits the target, enable isHit, unlock the target, and set the target to be destroyed.
         if (other.CompareTag("Bomb") || other.CompareTag("Gun")) {
-            if (!isDestroyed) {
+            if (!isDestroyed && isDeployed) {
                 isDestroyed = true;
                 locked = false;
                 DestroyTarget();

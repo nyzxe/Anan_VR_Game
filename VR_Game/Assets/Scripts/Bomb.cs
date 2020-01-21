@@ -94,7 +94,7 @@ public class Bomb : MonoBehaviour
                 Target target = nearbyObject.GetComponent<Target>();
 
                 // If the involved object is a target, adjust the necessary variables for the target.
-                if (target != null) {
+                if (target != null && target.isDeployed) {
                     target.locked = false;
                     target.isDestroyed = true;
                     target.DestroyTarget();

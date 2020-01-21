@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143763300957925334}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000004470348}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0.00000028088027}
   m_LocalPosition: {x: -4.7036, y: 0.62861, z: 1.2818}
   m_LocalScale: {x: 0.63705856, y: 0.63705856, z: 0.63705856}
   m_Children:
   - {fileID: 1143763302306989779}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!95 &1143763300957925335
 Animator:
   serializedVersion: 3
@@ -62,7 +62,6 @@ GameObject:
   - component: {fileID: 1143763302306989779}
   - component: {fileID: 1143763302306989778}
   - component: {fileID: 1143763302306989781}
-  - component: {fileID: 1143763302306989780}
   - component: {fileID: 1143763302306989783}
   - component: {fileID: 1143763302306989785}
   - component: {fileID: 1143763302306989782}
@@ -133,25 +132,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &1143763302306989780
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143763302306989784}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 3cd1f9f2c2c7c8e49b32d64c10a4eff2, type: 3}
-  m_Controller: {fileID: 9100000, guid: e7b6e26e5b6e83347bc85bc8b1cf0d03, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1143763302306989783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,12 +144,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017c8dc0e956416478fba7856f0c9d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 0}
+  scoreManager: {fileID: 0}
   locked: 1
   isFriendly: 1
   isDestroyed: 0
+  isDeployed: 0
   destroyTimer: 3
   currentHealth: 10
+  currentDelay: 0
 --- !u!54 &1143763302306989785
 Rigidbody:
   m_ObjectHideFlags: 0

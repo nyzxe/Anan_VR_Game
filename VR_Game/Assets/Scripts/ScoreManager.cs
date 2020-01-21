@@ -12,9 +12,13 @@ public class ScoreManager : MonoBehaviour
     GameObject startButton;
     [SerializeField]
     Text scoreText;
+    [SerializeField]
+    Text headerText;
+    [SerializeField]
+    Text resultText;
     [HideInInspector]
     public bool gameEnded;
-    public bool resultGiven;
+    bool resultGiven;
     public float timeLimit;
     float currentTimer;
     public Light resultLight;
@@ -22,7 +26,11 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField]
     float resultDelay;
-    float currentDelay;
+    float currentResultDelay;
+
+    [SerializeField]
+    float resetDelay;
+    float currentResetDelay;
 
     [SerializeField]
     Color winColor;
@@ -50,9 +58,17 @@ public class ScoreManager : MonoBehaviour
 
         // If the game has ended, count down the result delay.
         } else if (gameEnded && !resultGiven) {
-            currentDelay -= Time.deltaTime;
-            if (currentDelay <= 0f) {
+            resultLight.color = Color.white;
+            scoreText.gameObject.SetActive(false);
+            headerText.gameObject.SetActive(false);
+            currentResultDelay -= Time.deltaTime;
+            if (currentResultDelay <= 0f) {
                 GiveResult();
+            }
+        // If the game has ended and the result is given, reset the game.
+        } else if (gameEnded && resultGiven) {
+            currentResetDelay -= Time.deltaTime;
+            if (currentResetDelay <= 0f) {
                 ResetGame();
             }
         }
@@ -69,8 +85,10 @@ public class ScoreManager : MonoBehaviour
     // Change the lighting colour based on the end result.
     void GiveResult() {
         if (currentScore >= targetScore) {
+            resultText.text = "YOU WIN";
             resultLight.color = winColor;
         } else {
+            resultText.text = "YOU LOSE";
             resultLight.color = loseColor;
         }
         resultGiven = true;
@@ -88,6 +106,9 @@ public class ScoreManager : MonoBehaviour
 
     // Reset the game's current score and time limit.
     void ResetGame() {
+        resultText.text = "";
+        scoreText.gameObject.SetActive(true);
+        headerText.gameObject.SetActive(true);
         currentScore = 0;
         currentTimer = timeLimit;
         resultLight.color = defaultLightColor;

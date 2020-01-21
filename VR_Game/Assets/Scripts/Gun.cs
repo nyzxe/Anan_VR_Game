@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class Gun : MonoBehaviour {
 
@@ -67,6 +68,8 @@ public class Gun : MonoBehaviour {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun with spread.
             if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
+                    // Shake the camera.
+                    CameraShaker.Instance.ShakeOnce(1f, 4f, .1f, .5f);
                     foreach (LineRenderer line in shotgunLines) {
                         Shoot(line);
                     }
@@ -80,6 +83,8 @@ public class Gun : MonoBehaviour {
             // While the gun is grabbed and the button is down, shoot the gun continuously.
             if (grabber.isGrabbed && OVRInput.Get(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
+                    // Shake the camera.
+                    CameraShaker.Instance.ShakeOnce(1f, 4f, .1f, .5f);
                     Shoot(shotLine);
                 }
 
@@ -98,29 +103,29 @@ public class Gun : MonoBehaviour {
     }
 
     // Creates a raycast with a visual effect and applies bullet effects to struck objects. 
-    void Shoot(LineRenderer shotgunLine) {
+    void Shoot(LineRenderer line) {
         // Record the time of the last shot (this one is the new last shot).
         lastFired = Time.time;
 
         // Enable the bullet tracer.
-        StartCoroutine(ShotEffect(shotgunLine));
+        StartCoroutine(ShotEffect(line));
 
         // Set the start position of the bullet tracer at the barrel tip.
-        shotgunLine.SetPosition(0, barrelLocation.position);
+        line.SetPosition(0, barrelLocation.position);
 
         RaycastHit hit;
         // Start a raycast from the barrel tip to the calculated impact point.
         if (Physics.Raycast(barrelLocation.position, CalculateShotDeviation(), out hit)) {
 
             // Set the end position of the bullet tracer to the impact point.
-            shotgunLine.SetPosition(1, hit.point);
+            line.SetPosition(1, hit.point);
 
             // Instantiate the bullet impact effect, and destroy it 2 seconds later.
             Destroy(Instantiate(bulletImpact, hit.point, Quaternion.LookRotation(hit.normal)), 2f);
 
             // If the victim is a target, reduce the target's health.
             Target target = hit.transform.GetComponent<Target>();
-            if (target != null) {
+            if (target != null && target.isDeployed) {
                 target.currentHealth -= shotDamage;
             }
 

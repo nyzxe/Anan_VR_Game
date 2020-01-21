@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3389876499809038887}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0.00000028088027}
   m_LocalPosition: {x: -4.6890845, y: 0.5633, z: -1.5426}
   m_LocalScale: {x: 0.61258173, y: 0.61258173, z: 0.61258173}
   m_Children:
   - {fileID: 8917443972597781343}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!95 &3389876499809038885
 Animator:
   serializedVersion: 3
@@ -63,7 +63,6 @@ GameObject:
   - component: {fileID: 1561253152640515879}
   - component: {fileID: 8094235286263699775}
   - component: {fileID: 4388133991343578074}
-  - component: {fileID: 8543324047031735622}
   - component: {fileID: 3389876499946336194}
   - component: {fileID: 3389876499946336195}
   m_Layer: 0
@@ -145,31 +144,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017c8dc0e956416478fba7856f0c9d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 0}
+  scoreManager: {fileID: 0}
   locked: 1
   isFriendly: 0
   isDestroyed: 0
+  isDeployed: 0
   destroyTimer: 3
   currentHealth: 10
---- !u!95 &8543324047031735622
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4388133991343578069}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 3c6d907181aee3f48a75cc64b902bf9b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  currentDelay: 0
 --- !u!54 &3389876499946336194
 Rigidbody:
   m_ObjectHideFlags: 0
