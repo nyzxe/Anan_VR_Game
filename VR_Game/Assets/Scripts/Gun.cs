@@ -73,6 +73,9 @@ public class Gun : MonoBehaviour {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
+                    if (gunshotAudio != null) {
+                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
+                    }
                     foreach (LineRenderer line in shotgunLines) {
                         Shoot(line);
                     }
@@ -88,6 +91,9 @@ public class Gun : MonoBehaviour {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
                     CameraShaker.Instance.ShakeOnce(0.3f, 2f, 0.05f, 0.1f);
+                    if (gunshotAudio != null) {
+                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
+                    }
                     Shoot(shotLine);
                 }
 
@@ -100,6 +106,9 @@ public class Gun : MonoBehaviour {
             if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
+                    if (gunshotAudio != null) {
+                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
+                    }
                     Shoot(shotLine);
                 }
             }
@@ -111,6 +120,9 @@ public class Gun : MonoBehaviour {
             if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     CameraShaker.Instance.ShakeOnce(0.5f, 2f, 0.1f, 0.3f);
+                    if (gunshotAudio != null) {
+                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
+                    }
                     Shoot(shotLine);
                 }
             }
@@ -119,9 +131,7 @@ public class Gun : MonoBehaviour {
 
     // Creates a raycast with a visual effect and applies bullet effects to struck objects. 
     void Shoot(LineRenderer line) {
-        if (gunshotAudio != null) {
-            GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
-        }
+        
         //VibrationManager.singleton.TriggerVibration(gunshotAudio, grabbable.grabbedBy.GetController());
         VibrationManager.singleton.TriggerVibration(40, 2, 255, grabbable.grabbedBy.GetController());
 

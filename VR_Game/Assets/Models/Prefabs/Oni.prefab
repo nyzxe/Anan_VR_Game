@@ -100,7 +100,7 @@ MonoBehaviour:
   isDeployed: 0
   destroyTimer: 3
   currentHealth: 10
-  downAudio: {fileID: 0}
+  downAudio: {fileID: 8300000, guid: 0bd05763df902854a80475577a26666a, type: 3}
 --- !u!54 &5725209588665485344
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 5725209589437742431}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0.00000028088027}
   m_LocalPosition: {x: -4.7, y: 0.585, z: 0.355}
-  m_LocalScale: {x: 0.49034297, y: 0.49034297, z: 0.49034297}
+  m_LocalScale: {x: 1.8410476, y: 1.2989272, z: 8.425247}
   m_Children:
   - {fileID: 1310370770995518032}
   m_Father: {fileID: 0}

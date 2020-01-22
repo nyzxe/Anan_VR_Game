@@ -955,8 +955,8 @@ MonoBehaviour:
     spawnPosition: {x: 0, y: 0, z: 0}
   respawnEffect: {fileID: 1912731163003908, guid: c5febdd93ab44d640b3eb37b768360bb,
     type: 3}
-  respawnAudio: {fileID: 0}
-  audio: {fileID: 1222888202}
+  respawnAudio: {fileID: 8300000, guid: 80ddb2ab896bd4a47900ab5930d03865, type: 3}
+  audio: {fileID: 0}
 --- !u!1 &306635951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1670,133 @@ Transform:
   m_Father: {fileID: 1472822158}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &639128418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639128419}
+  - component: {fileID: 639128420}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &639128419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639128418}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1222888200}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &639128420
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639128418}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &652850272
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,7 +2412,7 @@ MonoBehaviour:
   gunType: 0
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
-  gunshotAudio: {fileID: 0}
+  gunshotAudio: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
 --- !u!114 &811565197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3764,7 +3891,7 @@ GameObject:
   - component: {fileID: 1222888199}
   - component: {fileID: 1222888201}
   - component: {fileID: 1222888203}
-  - component: {fileID: 1222888202}
+  - component: {fileID: 1222888204}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Manager
@@ -3798,10 +3925,10 @@ MonoBehaviour:
   resetDelay: 5
   winColor: {r: 0.06666667, g: 0.7254902, b: 0, a: 0}
   loseColor: {r: 0.7294118, g: 0, b: 0.03137255, a: 0}
-  winAudio: {fileID: 0}
-  loseAudio: {fileID: 0}
-  startAudio: {fileID: 0}
-  endAudio: {fileID: 0}
+  winAudio: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+  loseAudio: {fileID: 8300000, guid: a0ca8964c08d54c5dbebf245bdc474ca, type: 3}
+  startAudio: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
+  endAudio: {fileID: 8300000, guid: 657578e4be6b64dbf9b09deada272e55, type: 3}
 --- !u!4 &1222888200
 Transform:
   m_ObjectHideFlags: 0
@@ -3812,7 +3939,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 639128419}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3856,8 +3984,20 @@ MonoBehaviour:
   targetsDestroyed: 0
   numberOfRowsMoved: 0
   numberOfRows: 0
-  deployAudio: {fileID: 0}
---- !u!82 &1222888202
+  deployAudio: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
+--- !u!114 &1222888203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222888198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f314e699efcf1140bb643faae3fe23a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &1222888204
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3867,7 +4007,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ad15ef18bdf194348b17d937b7b9d94e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3913,7 +4053,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3953,18 +4093,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1222888203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222888198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f314e699efcf1140bb643faae3fe23a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1237419902
 GameObject:
   m_ObjectHideFlags: 0
@@ -4858,7 +4986,7 @@ MonoBehaviour:
   shotgunLine: {fileID: 1811586461931286363, guid: 44d690c39dbec994ea2357a3d72b1c73,
     type: 3}
   shotgunBulletCount: 8
-  gunshotAudio: {fileID: 0}
+  gunshotAudio: {fileID: 8300000, guid: 34b439bf70b80a6409eadecc6be92d68, type: 3}
 --- !u!82 &1288722639
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5467,7 +5595,7 @@ MonoBehaviour:
   explosionEffect: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
   lightButton: 1
-  explosionAudio: {fileID: 0}
+  explosionAudio: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
 --- !u!65 &1472822154
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7245,7 +7373,7 @@ MonoBehaviour:
   gunType: 1
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
-  gunshotAudio: {fileID: 0}
+  gunshotAudio: {fileID: 8300000, guid: d40330822ccea6140b664c0560d5022f, type: 3}
 --- !u!120 &1897300183
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -7582,7 +7710,7 @@ MonoBehaviour:
   explosionEffect: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
   lightButton: 1
-  explosionAudio: {fileID: 0}
+  explosionAudio: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
 --- !u!65 &1910364794
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8164,7 +8292,7 @@ MonoBehaviour:
   gunType: 3
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
-  gunshotAudio: {fileID: 0}
+  gunshotAudio: {fileID: 8300000, guid: 6dd7024f00606b44eb5884197a66a893, type: 3}
 --- !u!120 &2034813185
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -8592,7 +8720,7 @@ MonoBehaviour:
   explosionEffect: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
   lightButton: 1
-  explosionAudio: {fileID: 0}
+  explosionAudio: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
 --- !u!65 &2096839399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8969,7 +9097,7 @@ MonoBehaviour:
   explosionEffect: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
   lightButton: 1
-  explosionAudio: {fileID: 0}
+  explosionAudio: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
 --- !u!82 &8296172669177077519
 AudioSource:
   m_ObjectHideFlags: 0

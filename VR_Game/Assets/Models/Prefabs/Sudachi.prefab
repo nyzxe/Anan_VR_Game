@@ -100,7 +100,7 @@ MonoBehaviour:
   isDeployed: 0
   destroyTimer: 3
   currentHealth: 10
-  downAudio: {fileID: 0}
+  downAudio: {fileID: 8300000, guid: 0bd05763df902854a80475577a26666a, type: 3}
 --- !u!54 &6942347290602324089
 Rigidbody:
   m_ObjectHideFlags: 0

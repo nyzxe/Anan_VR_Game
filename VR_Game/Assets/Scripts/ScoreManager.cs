@@ -41,7 +41,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     Color loseColor;
 
-    AudioSource audio;
+    AudioSource sfxAudio;
+    AudioSource bgmAudio;
     [SerializeField]
     AudioClip winAudio;
     [SerializeField]
@@ -60,7 +61,9 @@ public class ScoreManager : MonoBehaviour
         currentTimer = timeLimit;
         currentResultDelay = resultDelay;
         currentResetDelay = resetDelay;
-        audio = GetComponent<AudioSource>();
+        bgmAudio = GetComponent<AudioSource>();
+        sfxAudio = GetComponentInChildren<AudioSource>();
+        bgmAudio.Play();
     }
 
     // Update is called once per frame
@@ -108,13 +111,13 @@ public class ScoreManager : MonoBehaviour
     void GiveResult() {
         if (currentScore >= targetScore) {
             if (winAudio != null) {
-                audio.PlayOneShot(winAudio);
+                sfxAudio.PlayOneShot(winAudio);
             }
             resultText.text = "YOU WIN";
             resultLight.color = winColor;
         } else {
             if (loseAudio != null) {
-                audio.PlayOneShot(loseAudio);
+                sfxAudio.PlayOneShot(loseAudio);
             }
             resultText.text = "YOU LOSE";
             resultLight.color = loseColor;
@@ -124,7 +127,7 @@ public class ScoreManager : MonoBehaviour
 
     public void StartGame() {
         if (startAudio != null) {
-            audio.PlayOneShot(startAudio);
+            sfxAudio.PlayOneShot(startAudio);
         }
         startButton.SetActive(false);
         timerText.gameObject.SetActive(true);
@@ -135,7 +138,7 @@ public class ScoreManager : MonoBehaviour
     public void EndGame() {
         gameEnded = true;
         gameHasFinished = true;
-        audio.PlayOneShot(endAudio);
+        sfxAudio.PlayOneShot(endAudio);
     }
 
     // Reset the game's current score and time limit.
