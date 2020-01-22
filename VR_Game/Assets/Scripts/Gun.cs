@@ -69,7 +69,7 @@ public class Gun : MonoBehaviour {
             if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
-                    CameraShaker.Instance.ShakeOnce(1f, 4f, .1f, .5f);
+                    CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
                     foreach (LineRenderer line in shotgunLines) {
                         Shoot(line);
                     }
@@ -84,18 +84,30 @@ public class Gun : MonoBehaviour {
             if (grabber.isGrabbed && OVRInput.Get(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
-                    CameraShaker.Instance.ShakeOnce(1f, 4f, .1f, .5f);
+                    CameraShaker.Instance.ShakeOnce(0.3f, 2f, 0.05f, 0.1f);
                     Shoot(shotLine);
                 }
 
             }
         }
 
-        // If the gun is a rifle or pistol,
-        if (gunType == GunType.Pistol || gunType == GunType.Rifle) {
+        // If the gun is a rifle,
+        if (gunType == GunType.Rifle) {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun.
             if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
+                    CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
+                    Shoot(shotLine);
+                }
+            }
+        }
+
+        // If the gun is a pistol,
+        if (gunType == GunType.Pistol) {
+            // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun.
+            if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
+                if (Time.time - lastFired > 1 / fireRate) {
+                    CameraShaker.Instance.ShakeOnce(0.5f, 2f, 0.1f, 0.3f);
                     Shoot(shotLine);
                 }
             }
@@ -138,23 +150,26 @@ public class Gun : MonoBehaviour {
 
     // Calculates and returns a direction affected by shot deviation.
     Vector3 CalculateShotDeviation() {
+        if (gunType != GunType.Rifle) {
+            // Saves the initial aim direction. This will be used to return the result later.
+            Vector3 direction = barrelLocation.transform.forward;
 
-        // Saves the initial aim direction. This will be used to return the result later.
-        Vector3 direction = barrelLocation.transform.forward;
+            // Saves the initial aim direction. This will be used as a temporary variable for calculations.
+            Vector3 spread = barrelLocation.transform.forward;
 
-        // Saves the initial aim direction. This will be used as a temporary variable for calculations.
-        Vector3 spread = barrelLocation.transform.forward;
+            // Apply vertical deviation.
+            spread += barrelLocation.transform.up * Random.Range(-spreadDeviation, spreadDeviation);
 
-        // Apply vertical deviation.
-        spread += barrelLocation.transform.up * Random.Range(-spreadDeviation, spreadDeviation);
+            // Apply horizontal deviation.
+            spread += barrelLocation.transform.right * Random.Range(-spreadDeviation, spreadDeviation);
 
-        // Apply horizontal deviation.
-        spread += barrelLocation.transform.right * Random.Range(-spreadDeviation, spreadDeviation);
+            // Apply the calculation to the return value, and round out the calculations to make it more organic.
+            direction += spread.normalized * Random.Range(0f, 0.2f);
 
-        // Apply the calculation to the return value, and round out the calculations to make it more organic.
-        direction += spread.normalized * Random.Range(0f, 0.2f);
-
-        return direction;
+            return direction;
+        } else {
+            return barrelLocation.transform.forward;
+        }
     }
 
     // Toggles the LineRenderer for a duration.

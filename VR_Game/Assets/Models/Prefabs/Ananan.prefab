@@ -144,14 +144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017c8dc0e956416478fba7856f0c9d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   locked: 1
   isFriendly: 1
   isDestroyed: 0
   isDeployed: 0
   destroyTimer: 3
   currentHealth: 10
-  currentDelay: 0
 --- !u!54 &1143763302306989785
 Rigidbody:
   m_ObjectHideFlags: 0

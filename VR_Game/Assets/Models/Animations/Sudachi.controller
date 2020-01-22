@@ -36,14 +36,14 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 3190296050018081398}
-    m_Position: {x: 550, y: 170, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: -3103459935938164415}
     m_Position: {x: 300, y: 100, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 5137626936451117209}
+    m_State: {fileID: 1142046988254299554}
     m_Position: {x: 335, y: 165, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 5720970130511260352}
+    m_Position: {x: 370, y: 230, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -76,7 +76,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &3190296050018081398
+--- !u!1102 &1142046988254299554
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -102,7 +102,7 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &5137626936451117209
+--- !u!1102 &5720970130511260352
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -110,7 +110,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PopUp
-  m_Speed: 1
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []

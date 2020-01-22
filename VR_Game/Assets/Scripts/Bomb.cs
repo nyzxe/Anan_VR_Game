@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EZCameraShake;
+using OculusSampleFramework;
 
 public class Bomb : MonoBehaviour
 {
@@ -27,20 +28,20 @@ public class Bomb : MonoBehaviour
     Vector3 spawnPosition;
 
     public GameObject explosionEffect;
-    Renderer renderer;
+    Renderer rend;
     GameObject colliders;
     GameObject crosshairs;
     Rigidbody rb;
 
-    OVRGrabbable grabber;
+    OVRGrabbable grabbable;
     public OVRInput.Button lightButton;
 
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        rend = GetComponent<Renderer>();
         crosshairs = GetComponent<Transform>().GetChild(0).gameObject;
         colliders = GetComponent<Transform>().GetChild(1).gameObject;
-        grabber = GetComponent<OVRGrabbable>();
+        grabbable = GetComponent<OVRGrabbable>();
         rb = GetComponent<Rigidbody>();
 
         // Save spawn position.
@@ -53,7 +54,7 @@ public class Bomb : MonoBehaviour
     void Update()
     {
         // If the bomb is grabbed and the button is pressed, light the fuse.
-        if (grabber.isGrabbed && OVRInput.GetDown(lightButton, grabber.grabbedBy.GetController()) && !hasExploded && !fuseIsLit) {
+        if (grabbable.isGrabbed && OVRInput.GetDown(lightButton, grabbable.grabbedBy.GetController()) && !hasExploded && !fuseIsLit) {
             fuseIsLit = true;
             currentFuseEffect = Instantiate(fuseEffect, fuseTip.transform.position, fuseTip.transform.rotation);
             currentFuseEffect.transform.parent = gameObject.transform;
@@ -83,6 +84,11 @@ public class Bomb : MonoBehaviour
     // Explode the bomb and disable the bomb.
     void Explode() {
 
+        // If the bomb is still grabbed, ungrab it.
+        if (grabbable.isGrabbed) {
+            grabbable.grabbedBy.ForceRelease(grabbable);
+        }
+
         // Get all objects' colliders within blast radius..
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, radius);
 
@@ -107,20 +113,14 @@ public class Bomb : MonoBehaviour
         CameraShaker.Instance.ShakeOnce(3f, 6f, .1f, 1f);
         // Show explosion effect.
         Instantiate(explosionEffect, transform.position, transform.rotation);
-
-        if (!grabber.isGrabbed) {
-            // Disable the bomb's renderer.
-            renderer.enabled = false;
-            // Disable the bomb's crosshairs.
-            crosshairs.SetActive(false);
-            // Disable the bomb's colliders.
-            colliders.SetActive(false);
-        }
+        // Disable the bomb's renderer.
+        rend.enabled = false;
+        // Disable the bomb's crosshairs.
+        crosshairs.SetActive(false);
+        // Disable the bomb's colliders.
+        colliders.SetActive(false);
         // Set exploded.
         hasExploded = true;
-
-
-
     }
 
     // Reset all bomb variables and respawn the bomb.
@@ -130,13 +130,13 @@ public class Bomb : MonoBehaviour
         // Reset bomb timer.
         currentExplodeTimer = explodeDelay;
 
-        if (!grabber.isGrabbed) {
+        if (!grabbable.isGrabbed) {
             // Reset exploded state.
             hasExploded = false;
             // Reset respawn timer.
             currentRespawnTimer = respawnDelay;
             // Enable the bomb's renderer.
-            renderer.enabled = true;
+            rend.enabled = true;
             // Enable the bomb's crosshairs.
             crosshairs.SetActive(true);
             // Enable the bomb's colliders.

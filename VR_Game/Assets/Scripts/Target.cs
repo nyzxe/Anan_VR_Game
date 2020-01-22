@@ -5,8 +5,7 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     Animator anim;
-    public ScoreManager scoreManager;
-    TargetManager targetManager;
+    ScoreManager scoreManager;
     public bool locked;
     public bool isFriendly;
     public bool isDestroyed;
@@ -17,14 +16,11 @@ public class Target : MonoBehaviour
     Rigidbody rb;
     public int currentHealth;
 
-    float popupDelay = 2f;
-    public float currentDelay;
-
-    private void Start() {
+    private void Awake() {
         anim = transform.parent.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        currentDelay = popupDelay;
         isDeployed = false;
+        scoreManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ScoreManager>();
     }
 
     private void Update() {
@@ -33,6 +29,7 @@ public class Target : MonoBehaviour
 
             if (currentHealth <= 0) {
                 isDestroyed = true;
+                isDeployed = false;
             }
 
             // If the target is hit and the score has not been adjusted, adjust the score accordingly.

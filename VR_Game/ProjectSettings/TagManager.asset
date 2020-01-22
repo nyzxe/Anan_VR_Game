@@ -9,6 +9,7 @@ TagManager:
   - Target
   - FxTemporaire
   - Level
+  - Manager
   layers:
   - Default
   - TransparentFX
