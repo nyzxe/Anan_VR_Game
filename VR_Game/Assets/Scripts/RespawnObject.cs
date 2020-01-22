@@ -15,6 +15,11 @@ public class RespawnObject : MonoBehaviour {
     [SerializeField]
     GameObject respawnEffect;
 
+    [SerializeField]
+    AudioClip respawnAudio;
+    [SerializeField]
+    AudioSource audio;
+
     // Start is called before the first frame update
     void Start() {
         SaveWeaponSpawns();
@@ -37,6 +42,9 @@ public class RespawnObject : MonoBehaviour {
                     rb.isKinematic = true;
                     other.transform.position = weapon.spawnPosition;
                     rb.isKinematic = false;
+                    if (respawnAudio != null && audio != null) {
+                        audio.PlayOneShot(respawnAudio);
+                    }
                     Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
                 } else {
                     i++;

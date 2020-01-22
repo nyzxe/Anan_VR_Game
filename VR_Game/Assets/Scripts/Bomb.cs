@@ -36,6 +36,9 @@ public class Bomb : MonoBehaviour
     OVRGrabbable grabbable;
     public OVRInput.Button lightButton;
 
+    [SerializeField]
+    AudioClip explosionAudio;
+
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -111,6 +114,9 @@ public class Bomb : MonoBehaviour
 
         // Shake the camera.
         CameraShaker.Instance.ShakeOnce(3f, 6f, .1f, 1f);
+        if (explosionAudio != null) {
+            GetComponent<AudioSource>().PlayOneShot(explosionAudio);
+        }
         // Show explosion effect.
         Instantiate(explosionEffect, transform.position, transform.rotation);
         // Disable the bomb's renderer.

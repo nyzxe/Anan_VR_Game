@@ -15,7 +15,7 @@ public class Gun : MonoBehaviour {
     [SerializeField, Tooltip("The prefab for the bullet impact visual effect.")]
     GameObject bulletImpact;
 
-    OVRGrabbable grabber;
+    OVRGrabbable grabbable;
 
     [Tooltip("The amount of damage one bullet will deal to a target on hit.")]
     public int shotDamage;
@@ -39,11 +39,14 @@ public class Gun : MonoBehaviour {
     GameObject shotgunLine;
     [SerializeField, Tooltip("The number of bullets which will be fired per shot.")]
     int shotgunBulletCount;
+
+    [SerializeField]
+    AudioClip gunshotAudio;
     
 
     void Start()
     {
-        grabber = GetComponent<OVRGrabbable>();
+        grabbable = GetComponent<OVRGrabbable>();
         if (barrelLocation == null)
             barrelLocation = transform;
         
@@ -66,7 +69,7 @@ public class Gun : MonoBehaviour {
         // If the held gun is a shotgun,
         if (gunType == GunType.Shotgun) {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun with spread.
-            if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
+            if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
@@ -81,7 +84,7 @@ public class Gun : MonoBehaviour {
         // If the held gun is a submachine gun,
         if (gunType == GunType.SMG) {
             // While the gun is grabbed and the button is down, shoot the gun continuously.
-            if (grabber.isGrabbed && OVRInput.Get(shootButton, grabber.grabbedBy.GetController())) {
+            if (grabbable.isGrabbed && OVRInput.Get(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
                     CameraShaker.Instance.ShakeOnce(0.3f, 2f, 0.05f, 0.1f);
@@ -94,7 +97,7 @@ public class Gun : MonoBehaviour {
         // If the gun is a rifle,
         if (gunType == GunType.Rifle) {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun.
-            if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
+            if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
                     Shoot(shotLine);
@@ -105,7 +108,7 @@ public class Gun : MonoBehaviour {
         // If the gun is a pistol,
         if (gunType == GunType.Pistol) {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun.
-            if (grabber.isGrabbed && OVRInput.GetDown(shootButton, grabber.grabbedBy.GetController())) {
+            if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     CameraShaker.Instance.ShakeOnce(0.5f, 2f, 0.1f, 0.3f);
                     Shoot(shotLine);
@@ -116,6 +119,12 @@ public class Gun : MonoBehaviour {
 
     // Creates a raycast with a visual effect and applies bullet effects to struck objects. 
     void Shoot(LineRenderer line) {
+        if (gunshotAudio != null) {
+            GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
+        }
+        //VibrationManager.singleton.TriggerVibration(gunshotAudio, grabbable.grabbedBy.GetController());
+        VibrationManager.singleton.TriggerVibration(40, 2, 255, grabbable.grabbedBy.GetController());
+
         // Record the time of the last shot (this one is the new last shot).
         lastFired = Time.time;
 

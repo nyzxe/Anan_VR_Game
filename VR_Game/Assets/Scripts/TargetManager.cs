@@ -65,6 +65,13 @@ public class TargetManager : MonoBehaviour
     [SerializeField]
     int numberOfRows;
 
+    AudioSource audio1;
+    AudioSource audio2;
+    AudioSource audio3;
+
+    [SerializeField]
+    AudioClip deployAudio;
+
     ScoreManager scoreManager;
 
     // Start is called before the first frame update
@@ -75,6 +82,9 @@ public class TargetManager : MonoBehaviour
         currentRemoveDelay = removeDelay;
         currentDeployDelay = deployDelay;
         moveDistance = Vector3.Distance(offstageDestinations[0].transform.position, onstageDestinations[0].transform.position);
+        audio1 = onstageDestinations[0].GetComponent<AudioSource>();
+        audio2 = onstageDestinations[1].GetComponent<AudioSource>();
+        audio3 = onstageDestinations[2].GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -406,6 +416,13 @@ public class TargetManager : MonoBehaviour
         foreach (GameObject target in allDeployedTargets) {
             target.GetComponent<Animator>().Play("PopUp");
             target.GetComponentInChildren<Target>().isDeployed = true;
+        }
+        audio1.PlayOneShot(deployAudio);
+        if (deployedTargets2.Count > 0) {
+            audio2.PlayOneShot(deployAudio);
+            if (deployedTargets3.Count > 0) {
+                audio3.PlayOneShot(deployAudio);
+            }
         }
         targetsDeployed = true;
     }

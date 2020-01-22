@@ -16,6 +16,9 @@ public class Target : MonoBehaviour
     Rigidbody rb;
     public int currentHealth;
 
+    [SerializeField]
+    AudioClip downAudio;
+
     private void Awake() {
         anim = transform.parent.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -35,6 +38,7 @@ public class Target : MonoBehaviour
             // If the target is hit and the score has not been adjusted, adjust the score accordingly.
             if (isDestroyed && !scoreTallied) {
                 anim.Play("PopDown");
+                GetComponent<AudioSource>().PlayOneShot(downAudio);
                 if (isFriendly) {
                     scoreManager.DeductScore();
 
