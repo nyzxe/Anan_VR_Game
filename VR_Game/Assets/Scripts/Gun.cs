@@ -42,6 +42,7 @@ public class Gun : MonoBehaviour {
 
     [SerializeField]
     AudioClip gunshotAudio;
+    AudioSource gunAudioSource;
     
 
     void Start()
@@ -49,7 +50,7 @@ public class Gun : MonoBehaviour {
         grabbable = GetComponent<OVRGrabbable>();
         if (barrelLocation == null)
             barrelLocation = transform;
-        
+        gunAudioSource = GetComponent<AudioSource>();
 
         if (gunType == GunType.Shotgun) {
             shotgunLines = new List<LineRenderer>();
@@ -73,9 +74,7 @@ public class Gun : MonoBehaviour {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
-                    if (gunshotAudio != null) {
-                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
-                    }
+                    StartCoroutine(PlayGunshotAudio());
                     foreach (LineRenderer line in shotgunLines) {
                         Shoot(line);
                     }
@@ -91,9 +90,7 @@ public class Gun : MonoBehaviour {
                 if (Time.time - lastFired > 1 / fireRate) {
                     // Shake the camera.
                     CameraShaker.Instance.ShakeOnce(0.3f, 2f, 0.05f, 0.1f);
-                    if (gunshotAudio != null) {
-                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
-                    }
+                    StartCoroutine(PlayGunshotAudio());
                     Shoot(shotLine);
                 }
 
@@ -106,9 +103,7 @@ public class Gun : MonoBehaviour {
             if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
-                    if (gunshotAudio != null) {
-                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
-                    }
+                    StartCoroutine(PlayGunshotAudio());
                     Shoot(shotLine);
                 }
             }
@@ -120,9 +115,7 @@ public class Gun : MonoBehaviour {
             if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
                     CameraShaker.Instance.ShakeOnce(0.5f, 2f, 0.1f, 0.3f);
-                    if (gunshotAudio != null) {
-                        GetComponent<AudioSource>().PlayOneShot(gunshotAudio);
-                    }
+                    StartCoroutine(PlayGunshotAudio());
                     Shoot(shotLine);
                 }
             }
@@ -132,8 +125,7 @@ public class Gun : MonoBehaviour {
     // Creates a raycast with a visual effect and applies bullet effects to struck objects. 
     void Shoot(LineRenderer line) {
         
-        //VibrationManager.singleton.TriggerVibration(gunshotAudio, grabbable.grabbedBy.GetController());
-        VibrationManager.singleton.TriggerVibration(40, 2, 255, grabbable.grabbedBy.GetController());
+        VibrationManager.singleton.TriggerVibration(gunshotAudio, grabbable.grabbedBy.GetController());
 
         // Record the time of the last shot (this one is the new last shot).
         lastFired = Time.time;
@@ -156,7 +148,7 @@ public class Gun : MonoBehaviour {
 
             // If the victim is a target, reduce the target's health.
             Target target = hit.transform.GetComponent<Target>();
-            if (target != null && target.isDeployed) {
+            if (target != null && target.isDeployed && !target.isMoving) {
                 target.currentHealth -= shotDamage;
             }
 
@@ -166,29 +158,32 @@ public class Gun : MonoBehaviour {
             }
         }
     }
+    
+    IEnumerator PlayGunshotAudio() {
+        if (gunshotAudio != null) {
+            gunAudioSource.PlayOneShot(gunshotAudio);
+            yield return null;
+        }
+    }
 
     // Calculates and returns a direction affected by shot deviation.
     Vector3 CalculateShotDeviation() {
-        if (gunType != GunType.Rifle) {
-            // Saves the initial aim direction. This will be used to return the result later.
-            Vector3 direction = barrelLocation.transform.forward;
+        // Saves the initial aim direction. This will be used to return the result later.
+        Vector3 direction = barrelLocation.transform.forward;
 
-            // Saves the initial aim direction. This will be used as a temporary variable for calculations.
-            Vector3 spread = barrelLocation.transform.forward;
+        // Saves the initial aim direction. This will be used as a temporary variable for calculations.
+        Vector3 spread = barrelLocation.transform.forward;
 
-            // Apply vertical deviation.
-            spread += barrelLocation.transform.up * Random.Range(-spreadDeviation, spreadDeviation);
+        // Apply vertical deviation.
+        spread += barrelLocation.transform.up * Random.Range(-spreadDeviation, spreadDeviation);
 
-            // Apply horizontal deviation.
-            spread += barrelLocation.transform.right * Random.Range(-spreadDeviation, spreadDeviation);
+        // Apply horizontal deviation.
+        spread += barrelLocation.transform.right * Random.Range(-spreadDeviation, spreadDeviation);
 
-            // Apply the calculation to the return value, and round out the calculations to make it more organic.
-            direction += spread.normalized * Random.Range(0f, 0.2f);
+        // Apply the calculation to the return value, and round out the calculations to make it more organic.
+        direction += spread.normalized * Random.Range(0f, 0.2f);
 
-            return direction;
-        } else {
-            return barrelLocation.transform.forward;
-        }
+        return direction;
     }
 
     // Toggles the LineRenderer for a duration.

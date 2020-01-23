@@ -38,6 +38,10 @@ public class Bomb : MonoBehaviour
 
     [SerializeField]
     AudioClip explosionAudio;
+    [SerializeField]
+    AudioClip fuseAudio;
+    [SerializeField]
+    RespawnObject respawn;
 
     void Start()
     {
@@ -59,6 +63,9 @@ public class Bomb : MonoBehaviour
         // If the bomb is grabbed and the button is pressed, light the fuse.
         if (grabbable.isGrabbed && OVRInput.GetDown(lightButton, grabbable.grabbedBy.GetController()) && !hasExploded && !fuseIsLit) {
             fuseIsLit = true;
+            if (fuseAudio != null) {
+                GetComponent<AudioSource>().PlayOneShot(fuseAudio);
+            }
             currentFuseEffect = Instantiate(fuseEffect, fuseTip.transform.position, fuseTip.transform.rotation);
             currentFuseEffect.transform.parent = gameObject.transform;
         }
@@ -86,7 +93,9 @@ public class Bomb : MonoBehaviour
 
     // Explode the bomb and disable the bomb.
     void Explode() {
-
+        // Stop playing the fuse audio clip.
+        GetComponent<AudioSource>().Stop();
+        
         // If the bomb is still grabbed, ungrab it.
         if (grabbable.isGrabbed) {
             grabbable.grabbedBy.ForceRelease(grabbable);
@@ -106,7 +115,6 @@ public class Bomb : MonoBehaviour
                 if (target != null && target.isDeployed) {
                     target.locked = false;
                     target.isDestroyed = true;
-                    target.DestroyTarget();
                 }
                 rb.AddExplosionForce(force, transform.position, radius);
             }
@@ -114,6 +122,7 @@ public class Bomb : MonoBehaviour
 
         // Shake the camera.
         CameraShaker.Instance.ShakeOnce(3f, 6f, .1f, 1f);
+        // Play explosion audio.
         if (explosionAudio != null) {
             GetComponent<AudioSource>().PlayOneShot(explosionAudio);
         }
@@ -153,6 +162,8 @@ public class Bomb : MonoBehaviour
             transform.position = spawnPosition;
             // Reset isKinematic.
             rb.isKinematic = false;
+            // Play respawn audio.
+            respawn.PlayRespawnAudio();
         }
         
     }

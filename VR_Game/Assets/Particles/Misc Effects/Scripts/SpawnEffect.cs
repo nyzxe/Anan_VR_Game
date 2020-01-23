@@ -35,7 +35,10 @@ public class SpawnEffect : MonoBehaviour {
         }
         else
         {
-            ps.Play();
+            if (ps != null) {
+                ps.Play();
+            }
+            
             timer = 0;
         }
 

@@ -37,7 +37,8 @@ public class TargetManager : MonoBehaviour
     Vector3 tempPos;
 
     float moveDistance;
-    float moveSpeed = 0.5f;
+    [SerializeField]
+    float moveSpeed;
     [SerializeField]
     bool moveTimeRecorded;
     float startTime;
@@ -54,8 +55,6 @@ public class TargetManager : MonoBehaviour
     bool targetsDeployed;
     [SerializeField]
     bool targetsDown;
-    [SerializeField]
-    bool targetsDestroyed;
 
     int numberOfTargets1;
     int numberOfTargets2;
@@ -138,11 +137,10 @@ public class TargetManager : MonoBehaviour
 
         // If there are leftover targets after the game has ended, remove them.
         } else {
-            if (targetsDeployed || moveTimeRecorded) {
+            if (targetsDeployed || moveTimeRecorded || targetsOnstage) {
                 MoveOutTargets();
                 if (!targetsOnstage) {
                     DestroyTargets();
-                    ResetTargetState();
                     numberOfDestroyedRows = 0;
                     numberOfTargets1 = 0;
                     numberOfTargets2 = 0;
@@ -191,18 +189,6 @@ public class TargetManager : MonoBehaviour
             deployedTargets1.Add(newTarget);
         }
 
-        // Ensure that there is at least one enemy target in the row.
-        bool row1Prepared = false;
-        foreach (GameObject target in deployedTargets1) {
-            if (!target.GetComponentInChildren<Target>().isFriendly) {
-                row1Prepared = true;
-            }
-        }
-        if (!row1Prepared) {
-            deployedTargets1.RemoveAt(0);
-            deployedTargets1.Add(targets[2]);
-        }
-
         if (numberOfTargets2 != 0) {
             // Instantiate the second row's targets with margin between them, and add them to the lists.
             for (int i = 0; i < numberOfTargets2; i++) {
@@ -213,18 +199,6 @@ public class TargetManager : MonoBehaviour
                 deployedTargets2.Add(newTarget);
             }
 
-            // Ensure that there is at least one enemy target in the row.
-            bool row2Prepared = false;
-            foreach (GameObject target in deployedTargets2) {
-                if (!target.GetComponentInChildren<Target>().isFriendly) {
-                    row2Prepared = true;
-                }
-            }
-            if (!row2Prepared) {
-                deployedTargets2.RemoveAt(0);
-                deployedTargets2.Add(targets[2]);
-
-            }
             if (numberOfTargets3 != 0) {
                 // Instantiate the third row's targets with margin between them, and add them to the lists.
                 for (int i = 0; i < numberOfTargets3; i++) {
@@ -234,23 +208,12 @@ public class TargetManager : MonoBehaviour
                     allDeployedTargets.Add(newTarget);
                     deployedTargets3.Add(newTarget);
                 }
-
-                // Ensure that there is at least one enemy target in the row.
-                bool row3Prepared = false;
-                foreach (GameObject target in deployedTargets3) {
-                    if (!target.GetComponentInChildren<Target>().isFriendly) {
-                        row3Prepared = true;
-                    }
-                }
-                if (!row3Prepared) {
-                    deployedTargets3.RemoveAt(0);
-                    deployedTargets3.Add(targets[2]);
-                }
             }
         }
     }
 
     void PrepareTemps() {
+
         // Instantiate temporary object (temp). This will be used to move the targets onstage as a parent.
         temp1 = Instantiate(temp, offstageDestinations[0].transform.position, offstageDestinations[0].transform.rotation);
 
@@ -350,9 +313,9 @@ public class TargetManager : MonoBehaviour
         // Checks if each temp has been moved.
         if (onstageDestinations[0].transform.position.z - temp1.transform.position.z <= 0.01f) {
             numberOfRowsMoved = 1;
-            if (temp2 && onstageDestinations[1].transform.position.z - temp2.transform.position.z <= 1f) {
+            if (temp2 && onstageDestinations[1].transform.position.z - temp2.transform.position.z <= 0.01f) {
                 numberOfRowsMoved = 2;
-                if (temp3 && onstageDestinations[2].transform.position.z - temp3.transform.position.z <= 1f) {
+                if (temp3 && onstageDestinations[2].transform.position.z - temp3.transform.position.z <= 0.01f) {
                     numberOfRowsMoved = 3;
                 }
             }
@@ -362,8 +325,6 @@ public class TargetManager : MonoBehaviour
         if (numberOfRowsMoved == numberOfRows) {
             moveTimeRecorded = false;
             targetsOnstage = true;
-            numberOfRowsMoved = 0;
-            
         } 
     }
 
@@ -371,30 +332,51 @@ public class TargetManager : MonoBehaviour
 
     // Move the targets offstage.
     void MoveOutTargets() {
+        // Set isMoving to true so that the targets can't be shot.
+        foreach (GameObject target in deployedTargets1) {
+            if (target != null) {
+                target.GetComponentInChildren<Target>().isMoving = true;
+            }
+        }
+        if (temp2) {
+            foreach (GameObject target in deployedTargets2) {
+                if (target.GetComponentInChildren<Target>() != null) {
+                    target.GetComponentInChildren<Target>().isMoving = true;
+                }
+            }
+            if (temp3) {
+                foreach (GameObject target in deployedTargets3) {
+                    if (target.GetComponentInChildren<Target>() != null) {
+                        target.GetComponentInChildren<Target>().isMoving = true;
+                    }
+                }
+            }
+        }
+
+        numberOfRowsMoved = 0;
         if (!moveTimeRecorded) {
             startTime = Time.time;
             moveTimeRecorded = true;
         }
         float distanceMoved = (Time.time - startTime) * moveSpeed;
         float fractionMoved = distanceMoved / moveDistance;
-        targetsOnstage = true;
-        // Move temp to the designated offstage position for the row, thereby also moving the targets.
+        // Move temp to the designated onstage position for the row, thereby also moving the targets.
         temp1.transform.position = Vector3.Lerp(temp1.transform.position, offstageDestinations[0].transform.position, fractionMoved);
         if (temp2) {
-            // Move temp to the designated offstage position for the row, thereby also moving the targets.
+            // Move temp to the designated onstage position for the row, thereby also moving the targets.
             temp2.transform.position = Vector3.Lerp(temp2.transform.position, offstageDestinations[1].transform.position, fractionMoved);
             if (temp3) {
-                // Move temp to the designated offstage position for the row, thereby also moving the targets.
+                // Move temp to the designated onstage position for the row, thereby also moving the targets.
                 temp3.transform.position = Vector3.Lerp(temp3.transform.position, offstageDestinations[2].transform.position, fractionMoved);
             }
         }
 
         // Checks if each temp has been moved.
-        if (offstageDestinations[0].transform.position.z - temp1.transform.position.z <= 0.01f) {
+        if (Mathf.Abs(offstageDestinations[0].transform.position.z - temp1.transform.position.z) <= 0.01f) {
             numberOfRowsMoved = 1;
-            if (temp2 && offstageDestinations[1].transform.position.z - temp2.transform.position.z <= 1f) {
+            if (temp2 && Mathf.Abs(offstageDestinations[1].transform.position.z - temp2.transform.position.z) <= 0.01f) {
                 numberOfRowsMoved = 2;
-                if (temp3 && offstageDestinations[2].transform.position.z - temp3.transform.position.z <= 1f) {
+                if (temp3 && Mathf.Abs(offstageDestinations[2].transform.position.z - temp3.transform.position.z) <= 0.01f) {
                     numberOfRowsMoved = 3;
                 }
             }
@@ -442,7 +424,6 @@ public class TargetManager : MonoBehaviour
                 Destroy(temp3);
             }
         }
-        targetsDestroyed = true;
         ResetTargetState();
     }
 
@@ -451,7 +432,6 @@ public class TargetManager : MonoBehaviour
         targetsDown = false;
         targetsPrepared = false;
         targetsDeployed = false;
-        targetsDestroyed = false;
         currentDuration = targetsDuration;
         currentRemoveDelay = removeDelay;
         numberOfRowsMoved = 0;

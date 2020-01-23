@@ -10,6 +10,7 @@ public class Target : MonoBehaviour
     public bool isFriendly;
     public bool isDestroyed;
     public bool isDeployed;
+    public bool isMoving;
     bool scoreTallied;
     [SerializeField]
     float destroyTimer;
@@ -20,6 +21,7 @@ public class Target : MonoBehaviour
     AudioClip downAudio;
 
     private void Awake() {
+        isMoving = false;
         anim = transform.parent.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         isDeployed = false;

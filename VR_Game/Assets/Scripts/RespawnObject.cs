@@ -18,7 +18,7 @@ public class RespawnObject : MonoBehaviour {
     [SerializeField]
     AudioClip respawnAudio;
     [SerializeField]
-    AudioSource audio;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start() {
@@ -35,39 +35,58 @@ public class RespawnObject : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Gun") {
-            int i = 0;
-            foreach (Weapon weapon in weapons) {
-                if (other.name == weapon.weaponObject.name) {
-                    Rigidbody rb = other.GetComponent<Rigidbody>();
-                    rb.isKinematic = true;
-                    other.transform.position = weapon.spawnPosition;
-                    rb.isKinematic = false;
-                    if (respawnAudio != null && audio != null) {
-                        audio.PlayOneShot(respawnAudio);
-                    }
-                    Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
-                } else {
-                    i++;
-                }
-
-            }
+            RespawnGun(other);
         }
         if (other.tag == "Bomb") {
             if (!other.GetComponent<Bomb>().fuseIsLit) {
-                int i = 0;
-                foreach (Weapon weapon in weapons) {
-                    if (other.name == weapon.weaponObject.name) {
-                        Rigidbody rb = other.GetComponent<Rigidbody>();
-                        rb.isKinematic = true;
-                        other.transform.position = weapon.spawnPosition;
-                        rb.isKinematic = false;
-                        Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
-                    } else {
-                        i++;
-                    }
-
-                }
+                RespawnBomb(other);
             }
+        }
+    }
+
+    void RespawnGun(Collider other) {
+        int i = 0;
+        foreach (Weapon weapon in weapons) {
+            if (other.name == weapon.weaponObject.name) {
+                if (other.GetComponent<OVRGrabbable>().isGrabbed) {
+                    return;
+                }
+                Rigidbody rb = other.GetComponent<Rigidbody>();
+                rb.isKinematic = true;
+                other.transform.position = weapon.spawnPosition;
+                rb.isKinematic = false;
+                PlayRespawnAudio();
+                Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
+            } else {
+                i++;
+            }
+
+        }
+    }
+
+    void RespawnBomb(Collider other) {
+        int i = 0;
+        foreach (Weapon weapon in weapons) {
+            if (other.name == weapon.weaponObject.name) {
+                if (other.GetComponent<OVRGrabbable>().isGrabbed) {
+                    return;
+                }
+                Rigidbody rb = other.GetComponent<Rigidbody>();
+                rb.isKinematic = true;
+                other.transform.position = weapon.spawnPosition;
+                rb.isKinematic = false;
+                PlayRespawnAudio();
+                Destroy(Instantiate(respawnEffect, weapon.spawnPosition, Quaternion.identity), 2f);
+            } else {
+                i++;
+            }
+
+        }
+    }
+
+    public void PlayRespawnAudio() {
+        if (respawnAudio != null && audioSource != null) {
+            audioSource.PlayOneShot(respawnAudio);
         }
     }
 
