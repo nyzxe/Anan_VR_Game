@@ -597,7 +597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125884173}
   m_LocalRotation: {x: 0.26803055, y: 0.27316138, z: -0.65433913, w: 0.6522139}
-  m_LocalPosition: {x: -0.29, y: 8.54, z: -4.55}
+  m_LocalPosition: {x: -0.27, y: 6.75, z: -2.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2132853040}
@@ -1931,7 +1931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621663307}
   m_LocalRotation: {x: 0.26803055, y: 0.27316138, z: -0.65433913, w: 0.6522139}
-  m_LocalPosition: {x: 0.21, y: 9.35, z: -3.74}
+  m_LocalPosition: {x: 0.23, y: 7.56, z: -1.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2132853040}
@@ -2640,7 +2640,7 @@ MonoBehaviour:
   shootButton: 8192
   barrelLocation: {fileID: 972705700}
   bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
-  shotDamage: 5
+  shotDamage: 10
   shotPower: 70
   fireRate: 10
   spreadDeviation: 0.1
@@ -2648,6 +2648,8 @@ MonoBehaviour:
   gunType: 0
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
+  burstRate: 0
+  burstSize: 0
   gunshotAudio: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
 --- !u!82 &780979414
 AudioSource:
@@ -3139,7 +3141,7 @@ MonoBehaviour:
   shootButton: 8192
   barrelLocation: {fileID: 1498388125}
   bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
-  shotDamage: 5
+  shotDamage: 10
   shotPower: 70
   fireRate: 10
   spreadDeviation: 0.1
@@ -3147,6 +3149,8 @@ MonoBehaviour:
   gunType: 0
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
+  burstRate: 0
+  burstSize: 0
   gunshotAudio: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
 --- !u!114 &811565197
 MonoBehaviour:
@@ -3549,6 +3553,8 @@ MonoBehaviour:
   gunType: 1
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
+  burstRate: 0
+  burstSize: 0
   gunshotAudio: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
 --- !u!114 &822367165
 MonoBehaviour:
@@ -5291,7 +5297,7 @@ MonoBehaviour:
   resultText: {fileID: 1859789162}
   timerText: {fileID: 1860670031}
   gameEnded: 0
-  timeLimit: 60
+  timeLimit: 10
   resultLight: {fileID: 2059523541}
   resultDelay: 4
   resetDelay: 5
@@ -5347,10 +5353,10 @@ MonoBehaviour:
   temp: {fileID: 1083853418094199416, guid: 6fe12483fe5db4a428c6854c2af367c3, type: 3}
   targetMargin: 1
   numberOfDestroyedRows: 0
-  deployDelay: 0.5
+  deployDelay: 0.2
   currentDeployDelay: 0
   removeDelay: 0.5
-  moveSpeed: 1
+  moveSpeed: 1.5
   moveTimeRecorded: 0
   targetsDuration: 4.5
   targetsPrepared: 0
@@ -6352,7 +6358,7 @@ MonoBehaviour:
   shootButton: 8192
   barrelLocation: {fileID: 14251931}
   bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
-  shotDamage: 2
+  shotDamage: 3
   shotPower: 15
   fireRate: 3
   spreadDeviation: 0.7
@@ -6361,6 +6367,8 @@ MonoBehaviour:
   shotgunLine: {fileID: 1811586461931286363, guid: 44d690c39dbec994ea2357a3d72b1c73,
     type: 3}
   shotgunBulletCount: 8
+  burstRate: 0
+  burstSize: 0
   gunshotAudio: {fileID: 8300000, guid: 34b439bf70b80a6409eadecc6be92d68, type: 3}
 --- !u!82 &1288722639
 AudioSource:
@@ -8634,7 +8642,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765003835}
   m_LocalRotation: {x: 0.26803055, y: 0.27316138, z: -0.65433913, w: 0.6522139}
-  m_LocalPosition: {x: 0.89, y: 10.13, z: -2.97}
+  m_LocalPosition: {x: 0.91, y: 8.34, z: -1.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2132853040}
@@ -9346,6 +9354,8 @@ MonoBehaviour:
   gunType: 1
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
+  burstRate: 0
+  burstSize: 0
   gunshotAudio: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
 --- !u!120 &1897300183
 LineRenderer:
@@ -10289,7 +10299,7 @@ MonoBehaviour:
   shootButton: 8192
   barrelLocation: {fileID: 1678030053}
   bulletImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
-  shotDamage: 10
+  shotDamage: 4
   shotPower: 100
   fireRate: 4
   spreadDeviation: 0
@@ -10297,6 +10307,8 @@ MonoBehaviour:
   gunType: 3
   shotgunLine: {fileID: 0}
   shotgunBulletCount: 0
+  burstRate: 15
+  burstSize: 3
   gunshotAudio: {fileID: 8300000, guid: 6dd7024f00606b44eb5884197a66a893, type: 3}
 --- !u!120 &2034813185
 LineRenderer:

@@ -39,6 +39,10 @@ public class Gun : MonoBehaviour {
     GameObject shotgunLine;
     [SerializeField, Tooltip("The number of bullets which will be fired per shot.")]
     int shotgunBulletCount;
+    [SerializeField]
+    float burstRate;
+    [SerializeField]
+    float burstSize;
 
     [SerializeField]
     AudioClip gunshotAudio;
@@ -76,7 +80,7 @@ public class Gun : MonoBehaviour {
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
                     StartCoroutine(PlayGunshotAudio());
                     foreach (LineRenderer line in shotgunLines) {
-                        Shoot(line);
+                        Shoot(shotLine);
                     }
                     
                 }
@@ -102,9 +106,9 @@ public class Gun : MonoBehaviour {
             // If the gun is grabbed, the button has been pressed once, and the gun is ready to fire, shoot the gun.
             if (grabbable.isGrabbed && OVRInput.GetDown(shootButton, grabbable.grabbedBy.GetController())) {
                 if (Time.time - lastFired > 1 / fireRate) {
-                    CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
-                    StartCoroutine(PlayGunshotAudio());
-                    Shoot(shotLine);
+                    
+                    StartCoroutine(burstFire(shotLine));
+
                 }
             }
         }
@@ -122,10 +126,22 @@ public class Gun : MonoBehaviour {
         }
     }
 
+    IEnumerator burstFire(LineRenderer line) {
+        float bulletDelay = 1 / burstRate;
+        for (int i = 0; i < burstSize; i++) {
+            CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
+            StartCoroutine(PlayGunshotAudio());
+            Shoot(line);
+            yield return new WaitForSeconds(bulletDelay);
+        }
+    }
+
     // Creates a raycast with a visual effect and applies bullet effects to struck objects. 
     void Shoot(LineRenderer line) {
+        if (grabbable.isGrabbed) {
+            VibrationManager.singleton.TriggerVibration(gunshotAudio, grabbable.grabbedBy.GetController());
+        }
         
-        VibrationManager.singleton.TriggerVibration(gunshotAudio, grabbable.grabbedBy.GetController());
 
         // Record the time of the last shot (this one is the new last shot).
         lastFired = Time.time;
@@ -157,6 +173,7 @@ public class Gun : MonoBehaviour {
                 hit.rigidbody.AddForce(-hit.normal * shotPower);
             }
         }
+        
     }
     
     IEnumerator PlayGunshotAudio() {

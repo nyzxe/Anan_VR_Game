@@ -159,7 +159,7 @@ public class TargetManager : MonoBehaviour
         deployedTargets3 = new List<GameObject>();
 
         numberOfRows = 1;
-        numberOfTargets1 = Random.Range(2, 4);
+        numberOfTargets1 = Random.Range(3, 4);
 
         // Once the player has finished three rows, add a second row.
         if (numberOfDestroyedRows >= 3) {
@@ -169,7 +169,7 @@ public class TargetManager : MonoBehaviour
             // Once the player has finished six rows, add a third row.
             if (numberOfDestroyedRows >= 6) {
                 numberOfRows = 3;
-                numberOfTargets3 = Random.Range(2, 4);
+                numberOfTargets3 = Random.Range(3, 6);
             } else {
                 numberOfTargets3 = 0;
             }
