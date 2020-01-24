@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour {
     int targetScore;
     public int currentScore;
     [SerializeField]
-    GameObject startButton;
+    GameObject scoreFrame;
     [SerializeField]
     GameObject startButtonCanvas;
     [SerializeField]
@@ -24,6 +24,8 @@ public class ScoreManager : MonoBehaviour {
     Text resultText;
     [SerializeField]
     Text timerText;
+    [SerializeField]
+    Text reqText;
     bool resetConfirm = false;
     [HideInInspector]
     public bool gameEnded;
@@ -79,6 +81,7 @@ public class ScoreManager : MonoBehaviour {
         firstMessageShown = false;
         bgmAudio = GetComponent<AudioSource>();
         bgmAudio.Play();
+        reqText.text = "Get " + targetScore + " points to win!";
     }
 
     // Update is called once per frame
@@ -87,7 +90,7 @@ public class ScoreManager : MonoBehaviour {
         if (!gameEnded) {
             currentTimer -= Time.deltaTime;
             intTimer = Mathf.FloorToInt(currentTimer);
-            timerText.text = intTimer.ToString();
+            timerText.text = intTimer.ToString() + " seconds left!";
             scoreText.text = currentScore.ToString();
             if (currentTimer <= 0f) {
                 EndGame();
@@ -100,6 +103,8 @@ public class ScoreManager : MonoBehaviour {
             scoreText.gameObject.SetActive(false);
             headerText.gameObject.SetActive(false);
             timerText.gameObject.SetActive(false);
+            reqText.gameObject.SetActive(false);
+            scoreFrame.gameObject.SetActive(false);
             if (!firstMessageShown) {
                 resultText.text = "Game ended";
                 firstMessageShown = true;
@@ -176,6 +181,8 @@ public class ScoreManager : MonoBehaviour {
         resultText.text = "";
         scoreText.gameObject.SetActive(true);
         headerText.gameObject.SetActive(true);
+        reqText.gameObject.SetActive(true);
+        scoreFrame.gameObject.SetActive(true);
         currentScore = 0;
         currentTimer = timeLimit;
         currentResetDelay = resetDelay;

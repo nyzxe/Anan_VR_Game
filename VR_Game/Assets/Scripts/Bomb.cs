@@ -127,7 +127,7 @@ public class Bomb : MonoBehaviour
             GetComponent<AudioSource>().PlayOneShot(explosionAudio);
         }
         // Show explosion effect.
-        //Instantiate(explosionEffect, transform.position, transform.rotation);
+        Instantiate(explosionEffect, transform.position, transform.rotation);
         // Disable the bomb's renderer.
         rend.enabled = false;
         // Disable the bomb's crosshairs.

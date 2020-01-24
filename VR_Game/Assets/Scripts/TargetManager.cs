@@ -23,7 +23,19 @@ public class TargetManager : MonoBehaviour
     List<GameObject> deployedTargets2;
     List<GameObject> deployedTargets3;
 
-    int numberDeployed;
+    [SerializeField]
+    int row1MinTargets;
+    [SerializeField]
+    int row1MaxTargets;
+    [SerializeField]
+    int row2MinTargets;
+    [SerializeField]
+    int row2MaxTargets;
+    [SerializeField]
+    int row3MinTargets;
+    [SerializeField]
+    int row3MaxTargets;
+
     [SerializeField]
     float targetMargin;
     [SerializeField]
@@ -35,18 +47,16 @@ public class TargetManager : MonoBehaviour
     float removeDelay;
     float currentRemoveDelay;
     Vector3 tempPos;
-
     float moveDistance;
     [SerializeField]
     float moveSpeed;
-    [SerializeField]
-    bool moveTimeRecorded;
     float startTime;
-
     [SerializeField]
     float targetsDuration;
     float currentDuration;
 
+    [SerializeField]
+    bool moveTimeRecorded;
     [SerializeField]
     bool targetsPrepared;
     [SerializeField]
@@ -159,17 +169,17 @@ public class TargetManager : MonoBehaviour
         deployedTargets3 = new List<GameObject>();
 
         numberOfRows = 1;
-        numberOfTargets1 = Random.Range(3, 4);
+        numberOfTargets1 = Random.Range(row1MinTargets, row1MaxTargets);
 
         // Once the player has finished three rows, add a second row.
         if (numberOfDestroyedRows >= 3) {
             numberOfRows = 2;
-            numberOfTargets2 = Random.Range(3, 5);
+            numberOfTargets2 = Random.Range(row2MinTargets, row2MaxTargets);
 
             // Once the player has finished six rows, add a third row.
             if (numberOfDestroyedRows >= 6) {
                 numberOfRows = 3;
-                numberOfTargets3 = Random.Range(3, 6);
+                numberOfTargets3 = Random.Range(row3MinTargets, row3MaxTargets);
             } else {
                 numberOfTargets3 = 0;
             }
@@ -360,8 +370,11 @@ public class TargetManager : MonoBehaviour
         }
         float distanceMoved = (Time.time - startTime) * moveSpeed;
         float fractionMoved = distanceMoved / moveDistance;
-        // Move temp to the designated onstage position for the row, thereby also moving the targets.
-        temp1.transform.position = Vector3.Lerp(temp1.transform.position, offstageDestinations[0].transform.position, fractionMoved);
+        
+        if (temp1) {
+            // Move temp to the designated onstage position for the row, thereby also moving the targets.
+            temp1.transform.position = Vector3.Lerp(temp1.transform.position, offstageDestinations[0].transform.position, fractionMoved);
+        }
         if (temp2) {
             // Move temp to the designated onstage position for the row, thereby also moving the targets.
             temp2.transform.position = Vector3.Lerp(temp2.transform.position, offstageDestinations[1].transform.position, fractionMoved);
@@ -372,7 +385,7 @@ public class TargetManager : MonoBehaviour
         }
 
         // Checks if each temp has been moved.
-        if (Mathf.Abs(offstageDestinations[0].transform.position.z - temp1.transform.position.z) <= 0.01f) {
+        if (temp1 && Mathf.Abs(offstageDestinations[0].transform.position.z - temp1.transform.position.z) <= 0.01f) {
             numberOfRowsMoved = 1;
             if (temp2 && Mathf.Abs(offstageDestinations[1].transform.position.z - temp2.transform.position.z) <= 0.01f) {
                 numberOfRowsMoved = 2;
@@ -436,8 +449,6 @@ public class TargetManager : MonoBehaviour
         currentRemoveDelay = removeDelay;
         numberOfRowsMoved = 0;
         numberOfRows = 0;
-        numberDeployed = 0;
-       
     }
 
     // Check if the enemy targets are down.
