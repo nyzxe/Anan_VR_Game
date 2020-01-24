@@ -5297,7 +5297,7 @@ MonoBehaviour:
   resultText: {fileID: 1859789162}
   timerText: {fileID: 1860670031}
   gameEnded: 0
-  timeLimit: 10
+  timeLimit: 60
   resultLight: {fileID: 2059523541}
   resultDelay: 4
   resetDelay: 5
@@ -8311,7 +8311,7 @@ Light:
   serializedVersion: 9
   m_Type: 2
   m_Color: {r: 0.85793364, g: 0.40161088, b: 0.8962264, a: 1}
-  m_Intensity: 5
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -10543,8 +10543,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 2
-  m_Color: {r: 0.7529412, g: 0.36781186, b: 0, a: 1}
-  m_Intensity: 5
+  m_Color: {r: 0.7830189, g: 0.4757286, b: 0.18098079, a: 1}
+  m_Intensity: 3
   m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

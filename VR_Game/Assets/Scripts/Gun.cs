@@ -79,10 +79,9 @@ public class Gun : MonoBehaviour {
                     // Shake the camera.
                     CameraShaker.Instance.ShakeOnce(0.5f, 3f, 0.1f, 0.3f);
                     StartCoroutine(PlayGunshotAudio());
-                    foreach (LineRenderer line in shotgunLines) {
-                        Shoot(shotLine);
+                    for (int i = 0; i < shotgunLines.Count; i++) {
+                        Shoot(shotgunLines[i]);
                     }
-                    
                 }
             }
         }

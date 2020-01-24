@@ -105,11 +105,11 @@ public class Bomb : MonoBehaviour
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, radius);
 
         // If the involved objects have a rigidbody, apply explosive force to it.
-        foreach (Collider nearbyObject in nearbyObjects) {
-            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+        for (int i = 0; i < nearbyObjects.Length; i++) {
+            Rigidbody rb = nearbyObjects[i].GetComponent<Rigidbody>();
 
             if (rb != null) {
-                Target target = nearbyObject.GetComponent<Target>();
+                Target target = nearbyObjects[i].GetComponent<Target>();
 
                 // If the involved object is a target, adjust the necessary variables for the target.
                 if (target != null && target.isDeployed) {

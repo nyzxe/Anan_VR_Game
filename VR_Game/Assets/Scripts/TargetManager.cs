@@ -221,8 +221,8 @@ public class TargetManager : MonoBehaviour
         tempPos = new Vector3();
 
         // Add all the Vector3 values of deployed targets in the row to the temporary position.
-        foreach (GameObject target in deployedTargets1) {
-            tempPos += target.transform.position;
+        for (int i = 0; i < deployedTargets1.Count; i++) {
+            tempPos += deployedTargets1[i].transform.position;
         }
 
         // Divide the temporary position's Vector3 value by the number of deployed targets in the row. 
@@ -230,8 +230,8 @@ public class TargetManager : MonoBehaviour
         temp1.transform.position = tempPos / deployedTargets1.Count;
 
         // Parent all the row's targets into temp.
-        foreach (GameObject target in deployedTargets1) {
-            target.transform.parent = temp1.transform;
+        for (int i = 0; i < deployedTargets1.Count; i++) {
+            deployedTargets1[i].transform.parent = temp1.transform;
         }
 
         // Prepares row 2 temps. This uses the same code as above.
@@ -244,8 +244,8 @@ public class TargetManager : MonoBehaviour
             tempPos = new Vector3();
 
             // Add all the Vector3 values of deployed targets in the row to the temporary position.
-            foreach (GameObject target in deployedTargets2) {
-                tempPos += target.transform.position;
+            for (int i = 0; i < deployedTargets2.Count; i++) {
+                tempPos += deployedTargets2[i].transform.position;
             }
 
             // Divide the temporary position's Vector3 value by the number of deployed targets in the row. 
@@ -253,8 +253,8 @@ public class TargetManager : MonoBehaviour
             temp2.transform.position = tempPos / deployedTargets2.Count;
 
             // Parent all the row's targets into temp.
-            foreach (GameObject target in deployedTargets2) {
-                target.transform.parent = temp2.transform;
+            for (int i = 0; i < deployedTargets2.Count; i++) {
+                deployedTargets2[i].transform.parent = temp2.transform;
             }
 
             // Moves row 3 targets. This uses the same code as above.
@@ -267,8 +267,8 @@ public class TargetManager : MonoBehaviour
                 tempPos = new Vector3();
 
                 // Add all the Vector3 values of deployed targets in the row to the temporary position.
-                foreach (GameObject target in deployedTargets3) {
-                    tempPos += target.transform.position;
+                for (int i = 0; i < deployedTargets3.Count; i++) {
+                    tempPos += deployedTargets3[i].transform.position;
                 }
 
                 // Divide the temporary position's Vector3 value by the number of deployed targets in the row. 
@@ -276,8 +276,8 @@ public class TargetManager : MonoBehaviour
                 temp3.transform.position = tempPos / deployedTargets3.Count;
 
                 // Parent all the row's targets into temp.
-                foreach (GameObject target in deployedTargets3) {
-                    target.transform.parent = temp3.transform;
+                for (int i = 0; i < deployedTargets3.Count; i++) {
+                    deployedTargets3[i].transform.parent = temp3.transform;
                 }
             }
         }
@@ -333,21 +333,21 @@ public class TargetManager : MonoBehaviour
     // Move the targets offstage.
     void MoveOutTargets() {
         // Set isMoving to true so that the targets can't be shot.
-        foreach (GameObject target in deployedTargets1) {
-            if (target != null) {
-                target.GetComponentInChildren<Target>().isMoving = true;
+        for (int i = 0; i < deployedTargets1.Count; i++) {
+            if (deployedTargets1[i] != null) {
+                deployedTargets1[i].GetComponentInChildren<Target>().isMoving = true;
             }
         }
         if (temp2) {
-            foreach (GameObject target in deployedTargets2) {
-                if (target.GetComponentInChildren<Target>() != null) {
-                    target.GetComponentInChildren<Target>().isMoving = true;
+            for (int i = 0; i < deployedTargets2.Count; i++) {
+                if (deployedTargets2[i] != null) {
+                    deployedTargets2[i].GetComponentInChildren<Target>().isMoving = true;
                 }
             }
             if (temp3) {
-                foreach (GameObject target in deployedTargets3) {
-                    if (target.GetComponentInChildren<Target>() != null) {
-                        target.GetComponentInChildren<Target>().isMoving = true;
+                for (int i = 0; i < deployedTargets3.Count; i++) {
+                    if (deployedTargets3[i] != null) {
+                        deployedTargets3[i].GetComponentInChildren<Target>().isMoving = true;
                     }
                 }
             }
@@ -395,9 +395,9 @@ public class TargetManager : MonoBehaviour
     // Pop up the targets.
     void DeployTargets() {
         currentDeployDelay = deployDelay;
-        foreach (GameObject target in allDeployedTargets) {
-            target.GetComponent<Animator>().Play("PopUp");
-            target.GetComponentInChildren<Target>().isDeployed = true;
+        for (int i = 0; i < allDeployedTargets.Count; i++) {
+            allDeployedTargets[i].GetComponent<Animator>().Play("PopUp");
+            allDeployedTargets[i].GetComponentInChildren<Target>().isDeployed = true;
         }
         audio1.PlayOneShot(deployAudio);
         if (deployedTargets2.Count > 0) {
@@ -411,9 +411,9 @@ public class TargetManager : MonoBehaviour
 
     // Destroy all targets if they are out of the stage.
     void DestroyTargets() {
-        foreach (GameObject target in allDeployedTargets) {
-            target.transform.parent = null;
-            Destroy(target);
+        for (int i = 0; i < allDeployedTargets.Count; i++) {
+            allDeployedTargets[i].transform.parent = null;
+            Destroy(allDeployedTargets[i]);
         }
 
         // Destroy all temps.
@@ -442,8 +442,8 @@ public class TargetManager : MonoBehaviour
 
     // Check if the enemy targets are down.
     void CheckTargets() {
-        foreach (GameObject target in allDeployedTargets) {
-            Target t = target.GetComponentInChildren<Target>();
+        for (int i = 0; i < allDeployedTargets.Count; i++) {
+            Target t = allDeployedTargets[i].GetComponentInChildren<Target>();
             if (!t.isFriendly && !t.isDestroyed) {
                 return;
             }
